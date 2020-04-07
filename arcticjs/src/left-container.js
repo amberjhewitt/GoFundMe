@@ -3,11 +3,23 @@ import * as bs from 'react-bootstrap'
 // import AppContext from './context'
 import { Link } from "react-router-dom"
 import CAMPAIGNS from './sample_campaigns'
+import CATEGORIES from './categories'
 
 
 function LeftContainer(props) {
-    // const context = React.useContext(AppContext)
-    let campaigns = Object.values(CAMPAIGNS)
+
+
+    //Get the Categories//
+    const categories = {}
+    for (const p of Object.values(CATEGORIES)){
+        if (p in categories) {
+        categories[p] = categories[p] + 1
+        }else{
+        categories[p] = 1
+        }
+    }
+
+    console.log("sdfsdfsdfsd", categories)
 
     // if categories haven't been retrieved yet, just show a loading message
     //if (!campaigns.categories) {
@@ -18,10 +30,9 @@ function LeftContainer(props) {
     const counts = {}
     let totalCount = 0
     for (const camp of Object.values(CAMPAIGNS)) {
-        counts[camp.id] = (counts[camp.id] || 0) + 1
+        counts[camp.category_id] = (counts[camp.category_id] || 0) + 1
         totalCount += 1
     }
-    // console.log(counts)
 
     // render the categories
     return (
@@ -34,17 +45,17 @@ function LeftContainer(props) {
             </Link>
 
             {/* QUALITY CATEGORIES LISTED HERE */}
-            {/* <bs.Nav.Item>
+            <bs.Nav.Item>
                 {Object.values(CAMPAIGNS).map((cat) => (
                     <Link
-                        to={`/category/${cat.id}`}
+                        to={`/filter/${cat.category_id}`}
                         key={cat.id}
                         className="nav-link"
                     >
-                        {cat.title} ({counts[cat.id]})
+                        {CATEGORIES[cat.category_id]} ({counts[cat.category_id]})
                     </Link>
                 ))}
-            </bs.Nav.Item> */}
+            </bs.Nav.Item>
         </bs.Nav>
     )
 }

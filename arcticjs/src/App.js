@@ -25,15 +25,9 @@ function App(props) {
                     </bs.Col>
                     <bs.Col md="8">
                         <Switch>
-                            <Route path="/predict">
-                                <Prediction />
-                            </Route>
-                            <Route path="/campaign">
-                                <Description />
-                            </Route>
-                            <Route path="/">
-                                <Home />
-                            </Route>
+                            <Route path="/predict" component={Prediction} />
+                            <Route path="/campaign" component={Description} />
+                            <Route path="/" component={Home} />
                         </Switch>
                     </bs.Col>
                 </bs.Row>
