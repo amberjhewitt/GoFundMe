@@ -24,7 +24,7 @@ function CampaignCard(props) {
             </Link>
 
             <div className="container">
-                <bs.Card.Img thumbnail
+                <bs.Card.Img
                     variant="top"
                     alt={props.campaign.title}
                     src={props.campaign.campaign_image_url}
