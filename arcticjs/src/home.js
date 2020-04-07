@@ -39,7 +39,7 @@ function Home(props) {
                 {rows.map((row, row_idx) => (
                     <bs.Row key={row_idx}>
                         {row.map(campaign => (
-                            <bs.Col md="3" key={campaign.id}>
+                            <bs.Col key={campaign.id}>
                                 <CampaignCard campaign={campaign} />
                             </bs.Col>
                         ))}

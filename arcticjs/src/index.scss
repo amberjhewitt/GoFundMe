@@ -6,4 +6,50 @@ $warning: #8C5C03;
 $danger: #9E2821;
 $light: #f8f9fa;
 
+.maxWidth{
+    width: 70%;
+    max-width: 400px;
+    max-height: 320px;
+    border: 1.5px solid #F7F7F7;
+    background-color: #fff;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: bolder;
+
+}
+
+.container {
+    padding: 20px 40px 40px;
+    max-width: 600px;
+    &_image {
+        width: 250px;
+        margin: 30px 30px 30px 0;
+        float: left;
+    }
+    &_text {
+        display: inline;
+    }
+}
+
+.bg-brand{
+    background-color: rgba(3, 174, 110,0.3);
+}
+
+
+
+.float-rt {
+    float: right;
+  }
+  
+  .float-lft {
+    float: left;
+    width:45%;
+  }
+
+  .brand {
+    color: #03AE6E;
+  }
+
 @import '~bootstrap/scss/bootstrap';        // primary bootstrap library

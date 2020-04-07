@@ -20,11 +20,10 @@ function HeaderContainer(props) {
             <bs.Navbar.Collapse id="basic-navbar-nav">
                 <bs.Nav className="mr-auto">
                     <Link to="/" className="nav-link">Home</Link>
-                    <Link to="/about" className="nav-link">About</Link>
-                    <Link to="/help" className="nav-link">Help</Link>
+                    <Link to="/predict" className="nav-link">Donation Predictor</Link>
                 </bs.Nav>
                 <bs.Nav>
-                    <bs.NavDropdown title="Welcome, Neo" alignRight>
+                    <bs.NavDropdown title="Welcome, Degan" alignRight>
                         <bs.NavDropdown.Item>My Account</bs.NavDropdown.Item>
                         <bs.NavDropdown.Divider />
                         <bs.NavDropdown.Item href="#action/3.4">Logout</bs.NavDropdown.Item>

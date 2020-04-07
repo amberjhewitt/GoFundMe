@@ -7,7 +7,9 @@ import AppContext from './context'
 
 function Prediction(props) {
     return (
-        <h2>Estimated Campaign Gains</h2>
+        <>
+            <h1 className="mt-3 pl-3">Estimated Campaign Gains</h1>
+        </>
     )
 }
 export default Prediction

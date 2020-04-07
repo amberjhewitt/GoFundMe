@@ -25,7 +25,7 @@ function App(props) {
                     </bs.Col>
                     <bs.Col md="8">
                         <Switch>
-                            <Route path="/prediction">
+                            <Route path="/predict">
                                 <Prediction />
                             </Route>
                             <Route path="/campaign">
