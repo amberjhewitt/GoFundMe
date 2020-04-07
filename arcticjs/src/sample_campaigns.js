@@ -1,4 +1,3 @@
-// Not 100% this needs to be a .js file, but it's working rn
 const CAMPAIGNS = {
     "0": {
         "id": 0,
