@@ -4,7 +4,6 @@ import * as bs from 'react-bootstrap'
 import { useRouteMatch, Link } from 'react-router-dom'
 import CAMPAIGNS from './sample_campaigns'
 
-
 function Description(props) {
 
     let campaigns = Object.values(CAMPAIGNS)
@@ -21,6 +20,11 @@ function Description(props) {
     console.log(diffDays);
     //END
 
+    //Progress Bar//
+    const raised = campaign.current_amount
+    const goal = campaign.goal
+    const loader = Math.round((parseInt(raised)/parseInt(goal))*100)
+    //END//
 
     return (
         <>
@@ -53,7 +57,8 @@ function Description(props) {
                     <div>
                         <br />
                         <bs.Card.Text>{`Amount Raised: $${campaign.current_amount}`}</bs.Card.Text>
-                        <bs.Card.Title className="brand">{`Goal: $${campaign.goal}`}</bs.Card.Title>
+                        <bs.Card.Title className="brand">{`Goal: $${campaign.goal}`}</bs.Card.Title>                        
+                        <bs.ProgressBar style={{width: '100%'}} variant={'success'} animated now={loader} label={`${loader}%`}/>
                     </div>
                 </div>
 

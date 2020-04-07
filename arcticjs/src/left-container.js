@@ -34,7 +34,7 @@ function LeftContainer(props) {
             </Link>
 
             {/* QUALITY CATEGORIES LISTED HERE */}
-            {/*<bs.Nav.Item>
+            {/* <bs.Nav.Item>
                 {Object.values(CAMPAIGNS).map((cat) => (
                     <Link
                         to={`/category/${cat.id}`}
@@ -44,7 +44,7 @@ function LeftContainer(props) {
                         {cat.title} ({counts[cat.id]})
                     </Link>
                 ))}
-            </bs.Nav.Item>*/}
+            </bs.Nav.Item> */}
         </bs.Nav>
     )
 }
