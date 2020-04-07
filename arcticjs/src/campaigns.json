@@ -1,0 +1,29 @@
+const CAMPAIGNS = {
+    "17602": {
+        id: "17602",
+        category: "9",
+        image: "https://2dbdd5116ffa30a49aa8-c03f075f8191fb4e60e74b907071aee8.ssl.cf1.rackcdn.com/17602_1339718440.6702.jpg",
+        title: "My Rosita's Farewell",
+        description:"Anim excepteur incididunt adipisicing id cillum. Velit consequat ut dolor voluptate eiusmod esse sint tempor esse. Irure sint ea exercitation reprehenderit. Labore aliqua incididunt duis magna incididunt mollit exercitation amet cupidatat. Nostrud amet sit pariatur elit commodo. Laborum laboris aliqua non excepteur anim laborum mollit velit. Ullamco sint adipisicing nostrud reprehenderit sint.",
+        amount_raised: 4943,
+        goal: 8000,
+    },
+    "228593": {
+        id: "228593",
+        category: "0",
+        filename: "https://2dbdd5116ffa30a49aa8-c03f075f8191fb4e60e74b907071aee8.ssl.cf1.rackcdn.com/228593_1353206581.0749.jpg",
+        title: "Volunteering in Africa!",
+        description: "Sunt nisi irure in et ut ex labore ea non sit dolor. Laboris pariatur ea duis sint esse anim mollit anim cupidatat aliquip officia veniam minim. Amet aliquip voluptate voluptate tempor tempor eiusmod officia. Ut magna dolor mollit consequat minim. Est qui commodo fugiat ex minim do. Laborum laborum anim adipisicing voluptate cillum sunt cupidatat adipisicing reprehenderit. Non pariatur in sint do esse do ullamco sit.",
+        amount_raised: 1955,
+        goal: 3000,
+    },
+    "673481": {
+        id: "673481",
+        category: "3",
+        filename: "https://2dbdd5116ffa30a49aa8-c03f075f8191fb4e60e74b907071aee8.ssl.cf1.rackcdn.com/673481_1381977138.0912.jpg",
+        title: "Please Help Rosie",
+        description: "Aliquip elit amet ad deserunt. Ea elit occaecat aliquip id ipsum. Anim eu nulla nostrud culpa commodo pariatur commodo fugiat adipisicing voluptate occaecat laboris. Amet deserunt in fugiat esse eu duis. Do magna occaecat nisi commodo commodo.",
+        amount_raised: 1545,
+        goal: 2500,
+    }
+}

@@ -3,16 +3,10 @@ import * as bs from 'react-bootstrap'
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import HeaderContainer from './header-container'
 import LeftContainer from './left-container'
-import RightContainer from './right-container'
 import FooterContainer from './footer-container'
-import ProductDetail from './product-detail'
+import Prediction from './prediction'
+import Description from './description'
 import Home from './home'
-import Cart from './cart'
-import Checkout from './checkout'
-import CheckoutStarter from './checkout-starter'
-import Receipt from './receipt'
-import About from './about'
-import Help from './help'
 import './App.scss'
 
 
@@ -31,34 +25,16 @@ function App(props) {
                     </bs.Col>
                     <bs.Col md="8">
                         <Switch>
-                            <Route path="/product">
-                                <ProductDetail />
+                            <Route path="/prediction">
+                                <Prediction />
                             </Route>
-                            <Route path="/cart">
-                                <Cart />
-                            </Route>
-                            <Route path="/checkout-starter">
-                                <CheckoutStarter />
-                            </Route>
-                            <Route path="/checkout">
-                                <Checkout />
-                            </Route>
-                            <Route path="/receipt">
-                                <Receipt />
-                            </Route>
-                            <Route path="/about">
-                                <About />
-                            </Route>
-                            <Route path="/help">
-                                <Help />
+                            <Route path="/campaign">
+                                <Description />
                             </Route>
                             <Route path="/">
                                 <Home />
                             </Route>
                         </Switch>
-                    </bs.Col>
-                    <bs.Col md="2" className="px-3 py-4 border-left">
-                        <RightContainer />
                     </bs.Col>
                 </bs.Row>
                 <bs.Row noGutters className="flex-grow-0 flex-shrink-0">

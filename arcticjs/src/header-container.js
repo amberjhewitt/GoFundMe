@@ -13,7 +13,7 @@ function HeaderContainer(props) {
         <bs.Navbar expand="lg">
             <Link to="/">
                 <bs.Navbar.Brand>
-                    <img alt="Arctic.com" src="/media/Logo72.png" />
+                    <img width="15%" alt="GoFundMe" src="/media/gofundme-vector-logo.png" />
                 </bs.Navbar.Brand>
             </Link>
             <bs.Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -24,12 +24,6 @@ function HeaderContainer(props) {
                     <Link to="/help" className="nav-link">Help</Link>
                 </bs.Nav>
                 <bs.Nav>
-                    <bs.Nav className="mr-auto pr-4">
-                        <Link to="/cart" className="nav-link">
-                            <FontAwesomeIcon icon={faShoppingCart} className="mr-2"/>
-                            {context.cartCount}
-                        </Link>
-                    </bs.Nav>
                     <bs.NavDropdown title="Welcome, Neo" alignRight>
                         <bs.NavDropdown.Item>My Account</bs.NavDropdown.Item>
                         <bs.NavDropdown.Divider />
