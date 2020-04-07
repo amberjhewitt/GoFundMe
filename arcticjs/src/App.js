@@ -6,6 +6,7 @@ import LeftContainer from './left-container'
 import FooterContainer from './footer-container'
 import Prediction from './prediction'
 import Description from './description'
+import Checkout from './checkout'
 import Home from './home'
 import './App.scss'
 
@@ -27,6 +28,7 @@ function App(props) {
                         <Switch>
                             <Route path="/predict" component={Prediction} />
                             <Route path="/campaign" component={Description} />
+                            <Route path="/checkout" component={Checkout} />
                             <Route path="/" component={Home} />
                         </Switch>
                     </bs.Col>
