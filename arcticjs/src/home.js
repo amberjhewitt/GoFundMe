@@ -3,11 +3,14 @@ import * as bs from 'react-bootstrap'
 import { useRouteMatch } from 'react-router-dom'
 import CampaignCard from './campaign-card'
 import CAMPAIGNS from './sample_campaigns'
+import './test'
 
 const NUM_COLUMNS = 1
 
 function Home(props) {
     let campaignsArr = Object.values(CAMPAIGNS)
+
+    
 
     
 
