@@ -6,6 +6,7 @@ import { Formik, Form, Field} from 'formik'
 import AppContext from './context'
 import CAMPAIGNS from './full-campaigns.js'
 import CATEGORIES from './categories'
+import $ from 'jquery'
 
 
 function Checkout(props) {
@@ -43,18 +44,15 @@ const CheckoutController = props => {
             onSubmit={async (values, actions) => {
                 console.log('submit', values)
 
-                // create the sale
-                const items = []
-                for (const [pid, qty] of Object.entries(context.cart)) {
-                    const product = context.products[pid]
-                if (product) {
-                    items.push({
-                        pid: pid,
-                        qty: qty,
-                        price: product.price,
-                    })
-                }
-            }
+                $.ajax({
+                    type: "POST",
+                    url: "/arcticjs/src/test.py/",
+                    data: { values }
+                  }).done(function( o ) {
+                     // do something
+                  });
+
+                
 
             // Microft's Instructions ////////////////
             // const myRequest = new Request('flowers.jpg', {
@@ -119,41 +117,41 @@ const CheckoutController = props => {
 
 
 
-
-                const options = {
+                //AXIOS//
+                // const options = {
                     
-                    Mode: 'no-cors',
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Authorization": "Bearer biRNYl8XPbOCxeCO44NgFC/WDu300nACx6YoMugXFJsi1w4SxVQNRs5klgZrUEIihZjtWZnUQbe0uyfLpm72MQ==",
-                        // "Content-Length": 0,
-                        "Access-Control-Allow-Origin": "*",
-                        'Access-Control-Allow-Methods': 'OPTIONS,POST',
-                    }
-                };
+                //     Mode: 'no-cors',
+                //     headers: {
+                //         "Content-Type": "application/json",
+                //         "Authorization": "Bearer biRNYl8XPbOCxeCO44NgFC/WDu300nACx6YoMugXFJsi1w4SxVQNRs5klgZrUEIihZjtWZnUQbe0uyfLpm72MQ==",
+                //         // "Content-Length": 0,
+                //         "Access-Control-Allow-Origin": "*",
+                //         'Access-Control-Allow-Methods': 'OPTIONS,POST',
+                //     }
+                // };
 
-                const data = {
-                        auto_fb_post_mode: "False",                            
-                        category_id: 9,
-                        goal: values.goal,
-                        title: values.title,
-                        description: values.description,
-                        location_city: values.city,
-                        location_state: values.state,
-                        location_zip: values.zip,
-                        is_charity: "True",
-                        DonationPerDay: 10000,
-                };
+                // const data = {
+                //         auto_fb_post_mode: "False",                            
+                //         category_id: 9,
+                //         goal: values.goal,
+                //         title: values.title,
+                //         description: values.description,
+                //         location_city: values.city,
+                //         location_state: values.state,
+                //         location_zip: values.zip,
+                //         is_charity: "True",
+                //         DonationPerDay: 10000,
+                // };
 
 
-                const resp = await axios.post('http://ussouthcentral.services.azureml.net/workspaces/2abd23f891284eb98f5356e46b5cb743/services/1ba11348dd1a465fb5a7fb39358397b6/execute?api-version=2.0&details=true', data, options)
+                // const resp = await axios.post('http://ussouthcentral.services.azureml.net/workspaces/2abd23f891284eb98f5356e46b5cb743/services/1ba11348dd1a465fb5a7fb39358397b6/execute?api-version=2.0&details=true', data, options)
 
-                .then((response) => {
-                    console.log(response);
-                }, (error) => {
-                    console.log(error);
-                });
-                console.log(resp.data)
+                // .then((response) => {
+                //     console.log(response);
+                // }, (error) => {
+                //     console.log(error);
+                // });
+                // console.log(resp.data)
 
             }}
             >{form => (
