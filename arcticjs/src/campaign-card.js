@@ -20,7 +20,11 @@ function CampaignCard(props) {
     //Progress Bar//
     const raised = props.campaign.current_amount
     const goal = props.campaign.goal
+    const daysActive = props.campaign.daysActive
     const loader = Math.round((parseInt(raised) / parseInt(goal)) * 100)
+    const quality = Math.round((parseInt(raised)/parseInt(daysActive)) * 10
+    if (quality > 50)
+
     //END//
 
     return (
