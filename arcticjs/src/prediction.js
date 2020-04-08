@@ -2,7 +2,6 @@ import React from 'react'
 import * as bs from 'react-bootstrap'
 import axios from 'axios'
 import { Formik, Form, Field} from 'formik'
-import { useHistory } from 'react-router-dom'
 // import { formatNumber } from './util'
 import AppContext from './context'
 import CAMPAIGNS from './full-campaigns.js'
@@ -18,7 +17,6 @@ export default Checkout
 
 const CheckoutController = props => {
     const context = React.useContext(AppContext)
-    const history = useHistory()
 
 
     const total = context.getCartTotal()
@@ -57,27 +55,33 @@ const CheckoutController = props => {
                     })
                 }
             }
-                const resp = await axios.post(
-                    'https://ussouthcentral.services.azureml.net/workspaces/2abd23f891284eb98f5356e46b5cb743/services/1ba11348dd1a465fb5a7fb39358397b6/execute?api-version=2.0&details=true',
-                    {
-                        data: {
-                            auto_fb_post_mode: "False",                            
-                            category_id: CATEGORIES[values.category],
-                            goal: values.goal,
-                            title: values.title,
-                            description: values.description,
-                            location_city: values.city,
-                            location_state: values.state,
-                            location_zip: values.zip,
-                            is_charity: "True",
-                            "Divide(current_amount_days_active)": 10000,
-                        },
-                        headers: {
-                            "Content-Type": ["application/json", "application/json"],
-                            "Authorization": "Bearer BhavACjOiCpEE4ogCYRm5ayNGGYGculHnl8gxo/QI2RzD1UmOQ92pOpWtFMbAQcnK+ZarKPYcM3ldvLWJcwPAw=="
-                        },
-                    },
-                )
+
+                const options = {
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": "Bearer biRNYl8XPbOCxeCO44NgFC/WDu300nACx6YoMugXFJsi1w4SxVQNRs5klgZrUEIihZjtWZnUQbe0uyfLpm72MQ==",
+                        "Content-Length": 0,
+                        "Access-Control-Allow-Origin": *,
+                        "Accept": "application/json"
+                    }
+                };
+
+                const data = {
+                        auto_fb_post_mode: "False",                            
+                        category_id: 9,
+                        goal: values.goal,
+                        title: values.title,
+                        description: values.description,
+                        location_city: values.city,
+                        location_state: values.state,
+                        location_zip: values.zip,
+                        is_charity: "True",
+                        DonationPerDay: 10000,
+                };
+
+
+                const resp = await axios.post('https://ussouthcentral.services.azureml.net/workspaces/2abd23f891284eb98f5356e46b5cb743/services/1ba11348dd1a465fb5a7fb39358397b6/execute?api-version=2.0&details=true', data, options)
+
                 .then((response) => {
                     console.log(response);
                 }, (error) => {
