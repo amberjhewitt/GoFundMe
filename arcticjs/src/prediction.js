@@ -3,6 +3,8 @@ import * as bs from 'react-bootstrap'
 import { formatNumber } from './util'
 import { Link } from "react-router-dom"
 import AppContext from './context'
+// import CAMPAIGNS from './full-camps'
+import CAMPAIGNS from './full-campaigns.js'
 
 
 function Prediction(props) {
