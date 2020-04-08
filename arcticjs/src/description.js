@@ -12,14 +12,12 @@ function Description(props) {
     const match = useRouteMatch("/campaign/:pid")
 
     let campaign = campaigns[parseInt(match.params.pid)]
-    console.log("PID", campaign)
 
     //Find the # of days active
-    const date1 = new Date(campaign.collected_date);
-    const date2 = new Date(campaign.launch_date);
-    const diffTime = Math.abs(date2 - date1);
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
-    console.log("DIFF", diffDays);
+    // const date1 = new Date(campaign.collected_date);
+    // const date2 = new Date(campaign.launch_date);
+    // const diffTime = Math.abs(date2 - date1);
+    // const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
     //END --- Below I used days_active instead bc launch_date wasn't included in cleanest dataset.
 
     //Progress Bar//
