@@ -5,6 +5,7 @@ import { Formik, Form, Field} from 'formik'
 import { useHistory } from 'react-router-dom'
 // import { formatNumber } from './util'
 import AppContext from './context'
+import CATEGORIES from './categories'
 
 
 function Checkout(props) {
@@ -56,20 +57,23 @@ const CheckoutController = props => {
                 }
             }
                 const resp = await axios.post(
-                    'https://ussouthcentral.services.azureml.net/workspaces/2abd23f891284eb98f5356e46b5cb743/services/02cf6ca7ede74883bdb1a84ddf9e1669/execute?api-version=2.0&details=true',
+                    'https://ussouthcentral.services.azureml.net/workspaces/2abd23f891284eb98f5356e46b5cb743/services/1ba11348dd1a465fb5a7fb39358397b6/execute?api-version=2.0&details=true',
                     {
                         data: {
+                            auto_fb_post_mode: "False",                            
+                            category_id: CATEGORIES[values.category],
                             goal: values.goal,
                             title: values.title,
                             description: values.description,
-                            city: values.city,
-                            state: values.state,
-                            zip: values.zip,
-                            category: values.category,
+                            location_city: values.city,
+                            location_state: values.state,
+                            location_zip: values.zip,
+                            is_charity: "True",
+                            "Divide(current_amount_days_active)": 10000,
                         },
                         headers: {
                             "Content-Type": ["application/json", "application/json"],
-                            "Authorization": "Bearer m/Ounu8QlSAwqRXZRX6myxY+MEhHads9J7O558M7kxvqNfCa6raSY8Wt7PD5l2mOeV5gRCoG2RJ4oy60WoprhQ=="
+                            "Authorization": "Bearer BhavACjOiCpEE4ogCYRm5ayNGGYGculHnl8gxo/QI2RzD1UmOQ92pOpWtFMbAQcnK+ZarKPYcM3ldvLWJcwPAw=="
                         },
                     },
                 )
