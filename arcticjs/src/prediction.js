@@ -55,38 +55,87 @@ const CheckoutController = props => {
                 }
             }
 
-                const options = {
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Authorization": "Bearer biRNYl8XPbOCxeCO44NgFC/WDu300nACx6YoMugXFJsi1w4SxVQNRs5klgZrUEIihZjtWZnUQbe0uyfLpm72MQ==",
-                        "Content-Length": 0,
-                        "Access-Control-Allow-Origin": *,
-                        "Accept": "application/json"
-                    }
-                };
+            // Microft's Instructions ////////////////
+            let req = require("request");
 
-                const data = {
-                        auto_fb_post_mode: "False",                            
-                        category_id: 9,
-                        goal: values.goal,
-                        title: values.title,
-                        description: values.description,
-                        location_city: values.city,
-                        location_state: values.state,
-                        location_zip: values.zip,
-                        is_charity: "True",
-                        DonationPerDay: 10000,
-                };
+            const uri = "https://ussouthcentral.services.azureml.net/workspaces/2abd23f891284eb98f5356e46b5cb743/services/1ba11348dd1a465fb5a7fb39358397b6/execute?api-version=2.0&details=true";
+            const apiKey = "biRNYl8XPbOCxeCO44NgFC/WDu300nACx6YoMugXFJsi1w4SxVQNRs5klgZrUEIihZjtWZnUQbe0uyfLpm72MQ==";
+
+            let data = {
+                "Inputs": {
+                    "input1":
+                    [
+                        {
+                            "auto_fb_post_mode": "False",                            
+                            "category_id": 9,
+                            "goal": values.goal,
+                            "title": values.title,
+                            "description": values.description,
+                            "location_city": values.city,
+                            "location_state": values.state,
+                            "location_zip": values.zip,
+                            "is_charity": "True",
+                            "DonationPerDay": 10000,
+                        }
+                    ],
+                },
+                "GlobalParameters": {}
+            }
+
+            const options = {
+                uri: uri,
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + apiKey,
+                },
+                body: JSON.stringify(data)
+            }
+
+            await req(options, (err, res, body) => {
+                if (!err && res.statusCode == 200) {
+                    console.log(body);
+                } else {
+                    console.log("The request failed with status code: " + res.statusCode);
+                }
+            });
 
 
-                const resp = await axios.post('https://ussouthcentral.services.azureml.net/workspaces/2abd23f891284eb98f5356e46b5cb743/services/1ba11348dd1a465fb5a7fb39358397b6/execute?api-version=2.0&details=true', data, options)
 
-                .then((response) => {
-                    console.log(response);
-                }, (error) => {
-                    console.log(error);
-                });
-                console.log(resp.data)
+
+
+                // const options = {
+                //     headers: {
+                //         "Content-Type": "application/json",
+                //         "Authorization": "Bearer biRNYl8XPbOCxeCO44NgFC/WDu300nACx6YoMugXFJsi1w4SxVQNRs5klgZrUEIihZjtWZnUQbe0uyfLpm72MQ==",
+                //         "Content-Length": 0,
+                //         "Access-Control-Allow-Origin": *,
+                //         "Accept": "application/json"
+                //     }
+                // };
+
+                // const data = {
+                //         auto_fb_post_mode: "False",                            
+                //         category_id: 9,
+                //         goal: values.goal,
+                //         title: values.title,
+                //         description: values.description,
+                //         location_city: values.city,
+                //         location_state: values.state,
+                //         location_zip: values.zip,
+                //         is_charity: "True",
+                //         DonationPerDay: 10000,
+                // };
+
+
+                // const resp = await axios.post('https://ussouthcentral.services.azureml.net/workspaces/2abd23f891284eb98f5356e46b5cb743/services/1ba11348dd1a465fb5a7fb39358397b6/execute?api-version=2.0&details=true', data, options)
+
+                // .then((response) => {
+                //     console.log(response);
+                // }, (error) => {
+                //     console.log(error);
+                // });
+                // console.log(resp.data)
 
             }}
             >{form => (
