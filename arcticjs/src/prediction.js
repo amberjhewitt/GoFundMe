@@ -5,6 +5,7 @@ import { Formik, Form, Field} from 'formik'
 import { useHistory } from 'react-router-dom'
 // import { formatNumber } from './util'
 import AppContext from './context'
+import CAMPAIGNS from './full-campaigns.js'
 import CATEGORIES from './categories'
 
 
