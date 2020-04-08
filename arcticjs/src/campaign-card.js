@@ -22,8 +22,10 @@ function CampaignCard(props) {
     const goal = props.campaign.goal
     const daysActive = props.campaign.daysActive
     const loader = Math.round((parseInt(raised) / parseInt(goal)) * 100)
-    const quality = Math.round((parseInt(raised)/parseInt(daysActive)) * 10
-    if (quality > 50)
+    const quality = Math.round((parseInt(raised)/parseInt(daysActive)) * 100)
+    
+    
+    // if (quality > 50)
 
     //END//
 
