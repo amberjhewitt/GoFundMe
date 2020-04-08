@@ -23,6 +23,7 @@ function LeftContainer(props) {
         }
     }
 
+
     console.log("sdfsdfsdfsd", categories)
 
     // render the categories
@@ -48,6 +49,7 @@ function LeftContainer(props) {
                 ))}
             </bs.Nav.Item>
         </bs.Nav>
+
     )
 }
 export default LeftContainer
