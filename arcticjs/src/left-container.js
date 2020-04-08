@@ -49,9 +49,10 @@ function LeftContainer(props) {
             {/* QUALITY CATEGORIES LISTED HERE */}
             <bs.Nav.Item>
                 {Object.values(CAMPAIGNS).map((cat) => (
+
                     <Link
                         to={`/filter/${cat.category_id}`}
-                        key={cat.id}
+                        key={cat.category_id}
                         className="nav-link"
                     >
                         {CATEGORIES[cat.category_id]} ({counts[cat.category_id]})
