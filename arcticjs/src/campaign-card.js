@@ -24,15 +24,6 @@ function CampaignCard(props) {
     const loader = Math.round((parseInt(raised) / parseInt(goal)) * 100)
     const quality = Math.round((parseInt(raised)/parseInt(daysActive)) * 100)
 
-    // if (quality > 50)
-    // {
-    //     return()
-    // }
-    // else {
-    //     return()
-    // }
-
-
     //END//
 
     return (
