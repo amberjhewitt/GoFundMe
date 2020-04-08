@@ -12,12 +12,12 @@ function Home(props) {
     let campaignsArr = Object.values(CAMPAIGNS)
 
     // get an array of products, then filter to the current category
-    const match = useRouteMatch("/category/:cid")
+    const match = useRouteMatch("/category/:cid/")
     const cid = match ? parseInt(match.params.cid) : 0
     
-    if (cid) {
+    if (match) {
         campaignsArr = campaignsArr.filter(campaign => {
-            return campaign.category.id === cid
+            return campaign.category_id === match.params.cid
         })
     }
 
