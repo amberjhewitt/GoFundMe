@@ -1,13 +1,9 @@
 import React from 'react'
 import * as bs from 'react-bootstrap'
 import { Link } from "react-router-dom"
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
-import AppContext from './context'
 
 
 function HeaderContainer(props) {
-    const context = React.useContext(AppContext)
 
     return (
         <bs.Navbar expand="lg">
