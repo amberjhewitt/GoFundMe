@@ -2,7 +2,8 @@
 import React from 'react'
 import * as bs from 'react-bootstrap'
 import { useRouteMatch, Link } from 'react-router-dom'
-import CAMPAIGNS from './sample_campaigns'
+import CAMPAIGNS from './full-campaigns.js'
+//import CAMPAIGNS from './sample_campaigns'
 
 function Description(props) {
 
@@ -11,14 +12,15 @@ function Description(props) {
     const match = useRouteMatch("/campaign/:pid")
 
     let campaign = campaigns[parseInt(match.params.pid)]
+    console.log("PID", campaign)
 
     //Find the # of days active
     const date1 = new Date(campaign.collected_date);
     const date2 = new Date(campaign.launch_date);
     const diffTime = Math.abs(date2 - date1);
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
-    console.log(diffDays);
-    //END
+    console.log("DIFF", diffDays);
+    //END --- Below I used days_active instead bc launch_date wasn't included in cleanest dataset.
 
     //Progress Bar//
     const raised = campaign.current_amount
@@ -47,7 +49,7 @@ function Description(props) {
                 <div className="float-right rounded m-2 p-2" style={{ width: '300px', height: '300px', }}>
 
                     <h4>{campaign.location_city}</h4>
-                    <p>{`Created ${diffDays} days ago`}</p>
+                    <p>{`Created ${parseInt(campaign.days_active)} days ago`}</p>
 
                     <img
                         alt={campaign.title}
