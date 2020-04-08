@@ -9,6 +9,7 @@ import CATEGORIES from './categories'
 import $ from 'jquery'
 
 
+
 function Checkout(props) {
     return (
             <CheckoutController />
@@ -18,6 +19,8 @@ export default Checkout
 
 const CheckoutController = props => {
     const context = React.useContext(AppContext)
+
+
 
 
     const total = context.getCartTotal()
@@ -44,114 +47,29 @@ const CheckoutController = props => {
             onSubmit={async (values, actions) => {
                 console.log('submit', values)
 
-                $.ajax({
-                    type: "POST",
-                    url: "/arcticjs/src/test.py/",
-                    data: { values }
-                  }).done(function( o ) {
-                     // do something
-                  });
 
+                //Django Request
+
+                const resp = await axios.post('http://localhost:8000/api/prediction/', {
+                    "auto_fb_post_mode": "False",                            
+                    "category_id": 9,
+                    "goal": values.goal,
+                    "title": values.title,
+                    "description": values.description,
+                    "location_city": values.city,
+                    "location_state": values.state,
+                    "location_zip": values.zip,
+                    "is_charity": "True",
+                    "DonationPerDay": 10000,
+                })
+
+                let output = JSON.parse(resp.data)
+
+                let result = parseFloat(output.Results.output1.value.Values[0], 2)
+
+                console.log(result)   
                 
-
-            // Microft's Instructions ////////////////
-            // const myRequest = new Request('flowers.jpg', {
-            //     method: 'GET',
-            //     headers: myHeaders,
-            //     mode: 'no-cors',
-            //     cache: 'default',
-            //   });
-
-            // let req = require("request");
-
-            // const uri = "https://ussouthcentral.services.azureml.net/workspaces/2abd23f891284eb98f5356e46b5cb743/services/1ba11348dd1a465fb5a7fb39358397b6/execute?api-version=2.0&details=true";
-            // const apiKey = "biRNYl8XPbOCxeCO44NgFC/WDu300nACx6YoMugXFJsi1w4SxVQNRs5klgZrUEIihZjtWZnUQbe0uyfLpm72MQ==";
-
-            // let data = {
-            //     "Inputs": {
-            //         "input1":
-            //         [
-            //             {
-            //                 "auto_fb_post_mode": "False",                            
-            //                 "category_id": 9,
-            //                 "goal": values.goal,
-            //                 "title": values.title,
-            //                 "description": values.description,
-            //                 "location_city": values.city,
-            //                 "location_state": values.state,
-            //                 "location_zip": values.zip,
-            //                 "is_charity": "True",
-            //                 "DonationPerDay": 10000,
-            //             }
-            //         ],
-            //     },
-            //     "GlobalParameters": {}
-            // }
-
-            // const options = {
-            //     uri: uri,
-            //     method: "POST",
-            //     mode: 'no-cors',
-            //     headers: {
-            //         // 'Content-Type': 'application/x-www-form-urlencoded',
-            //         // 'Accept': 'application/json',
-            //         'Content-Type': 'application/json',
-            //         'Authorization': "Bearer " + apiKey,
-            //         'Access-Control-Allow-Headers': '*',
-            //         'Access-Control-Allow-Methods': 'OPTIONS,POST',
-            //         'Access-Control-Allow-Origin': 'http://localhost:3000',
-            //         'Content-Length': 0,
-            //     },
-            //     body: JSON.stringify(data)
-            // }
-
-
-            // await req(options, (err, res, body) => {
-            //     if (!err && res.statusCode == 200) {
-            //         console.log(body);
-            //     } else {
-            //         console.log("The request failed with status code: " + res.statusCode);
-            //     }
-            // });
-
-
-
-
-                //AXIOS//
-                // const options = {
-                    
-                //     Mode: 'no-cors',
-                //     headers: {
-                //         "Content-Type": "application/json",
-                //         "Authorization": "Bearer biRNYl8XPbOCxeCO44NgFC/WDu300nACx6YoMugXFJsi1w4SxVQNRs5klgZrUEIihZjtWZnUQbe0uyfLpm72MQ==",
-                //         // "Content-Length": 0,
-                //         "Access-Control-Allow-Origin": "*",
-                //         'Access-Control-Allow-Methods': 'OPTIONS,POST',
-                //     }
-                // };
-
-                // const data = {
-                //         auto_fb_post_mode: "False",                            
-                //         category_id: 9,
-                //         goal: values.goal,
-                //         title: values.title,
-                //         description: values.description,
-                //         location_city: values.city,
-                //         location_state: values.state,
-                //         location_zip: values.zip,
-                //         is_charity: "True",
-                //         DonationPerDay: 10000,
-                // };
-
-
-                // const resp = await axios.post('http://ussouthcentral.services.azureml.net/workspaces/2abd23f891284eb98f5356e46b5cb743/services/1ba11348dd1a465fb5a7fb39358397b6/execute?api-version=2.0&details=true', data, options)
-
-                // .then((response) => {
-                //     console.log(response);
-                // }, (error) => {
-                //     console.log(error);
-                // });
-                // console.log(resp.data)
+                document.getElementById('result').innerHTML = "Predicted amount of Donations per Day: $<strong>" + result + "</strong>"
 
             }}
             >{form => (
@@ -195,9 +113,13 @@ const CheckoutController = props => {
                                     </bs.Card.Body>
                                   
                                 </bs.Card>
+                                <br />
                                 <bs.Button variant="success" type="submit">
                                     Estimate
                                 </bs.Button>
+                                <br />
+                                <br />
+                                <h3 id="result"></h3>
                             </bs.Col>
                         </bs.Row>
                     </bs.Container>
