@@ -20,6 +20,7 @@ function LeftContainer(props) {
         }
     }
 
+
     console.log("sdfsdfsdfsd", categories)
 
     // if categories haven't been retrieved yet, just show a loading message
@@ -58,6 +59,7 @@ function LeftContainer(props) {
                 ))}
             </bs.Nav.Item>
         </bs.Nav>
+
     )
 }
 export default LeftContainer
