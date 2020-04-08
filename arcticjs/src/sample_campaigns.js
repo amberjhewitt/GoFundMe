@@ -1,3 +1,5 @@
+//OLD FILE USED FOR TEST PURPOSES
+
 const CAMPAIGNS = {
     "0": {
         "id": 0,

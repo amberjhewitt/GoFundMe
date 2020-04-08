@@ -2,7 +2,8 @@ import React from 'react'
 import * as bs from 'react-bootstrap'
 import { useRouteMatch } from 'react-router-dom'
 import CampaignCard from './campaign-card'
-import CAMPAIGNS from './sample_campaigns'
+//import CAMPAIGNS from './sample_campaigns'
+import CAMPAIGNS from './full-campaigns.js'
 import './test'
 
 const NUM_COLUMNS = 1
@@ -10,13 +11,10 @@ const NUM_COLUMNS = 1
 function Home(props) {
     let campaignsArr = Object.values(CAMPAIGNS)
 
-    
-
-    
-
     // get an array of products, then filter to the current category
     const match = useRouteMatch("/category/:cid")
     const cid = match ? parseInt(match.params.cid) : 0
+    
     if (cid) {
         campaignsArr = campaignsArr.filter(campaign => {
             return campaign.category.id === cid

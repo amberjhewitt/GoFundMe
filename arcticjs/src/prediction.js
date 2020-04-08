@@ -4,7 +4,8 @@ import axios from 'axios'
 import { Formik, Form, Field} from 'formik'
 // import { formatNumber } from './util'
 import AppContext from './context'
-// import CATEGORIES from './categories'
+import CAMPAIGNS from './full-campaigns.js'
+import CATEGORIES from './categories'
 
 
 function Checkout(props) {
