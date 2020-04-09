@@ -3,7 +3,8 @@ import * as bs from 'react-bootstrap'
 import { useRouteMatch } from 'react-router-dom'
 import CampaignCard from './campaign-card'
 //import CAMPAIGNS from './sample_campaigns'
-import CAMPAIGNS from './full-campaigns.js'
+import CAMPAIGNS from './full-campaigns'
+import qualities from './left-container'
 import './test'
 
 const NUM_COLUMNS = 1
@@ -13,6 +14,7 @@ function Home(props) {
 
     // get an array of products, then filter to the current category
     const match = useRouteMatch("/category/:cid/")
+    const matchQuality = useRouteMatch("/quality/:qid/")
     // const cid = match ? parseInt(match.params.cid) : 0
     
     if (match) {
@@ -20,6 +22,27 @@ function Home(props) {
             return campaign.category_id === match.params.cid
         })
     }
+
+    // if (matchQuality) {
+    //     campaignsArr = campaignsArr.filter(campaign => {
+    //         return qualities === match.params.qid
+            
+    //     })
+
+    // if (matchQuality) {
+
+    //     if (match.params.qid === "highQuality"){
+            
+    //         campaignArray = highQuality
+    //     }
+    //     else if(match.params.qid === "medQuality"){}
+    //     campaignArray = campaignsArr.filter(campaign => {
+    //         return qualities === match.params.qid
+            
+    //     }) 
+    // } 
+
+    console.log("match", match.params.cid)
 
     // slice the products into an array of arrays (e.g. a list of rows of 4 products each)
     const rows = []
