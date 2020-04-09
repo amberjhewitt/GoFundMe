@@ -11,133 +11,25 @@ from api.serializers import ProductSerializer
 from api.models import Sale
 
 import json
-import stripe
+
+import requests
 
 
-########################
-###  Category
-
-class CategoryList(APIView):
-    '''Get all categories or create a category'''
-    @csrf_exempt
-    def get(self, request, format=None):
-        cats = Category.objects.all()
-        if request.query_params.get('title'):
-            cats = cats.filter(title__contains=request.query_params.get('title'))
-        serializer = CategorySerializer(cats, many=True)
-        return Response(serializer.data)
+class CreatePrediction(APIView):
 
     @csrf_exempt
-    def post(self, request, format=None):
-        serializer = CategorySerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    def post(data, format=json):
+
+      url = "https://ussouthcentral.services.azureml.net/workspaces/2abd23f891284eb98f5356e46b5cb743/services/5f8fb15e0fa54250a7a827a534139f52/execute?api-version=2.0&details=true"
+
+      payload = "{\r\n  \"Inputs\": {\r\n    \"input1\": {\r\n      \"ColumnNames\": [\r\n        \"auto_fb_post_mode\",\r\n        \"category_id\",\r\n        \"goal\",\r\n        \"title\",\r\n        \"description\",\r\n        \"location_city\",\r\n        \"location_state\",\r\n        \"location_zip\",\r\n        \"is_charity\",\r\n        \"DonationPerDay\"\r\n      ],\r\n      \"Values\": [\r\n        [\r\n          \"1\",\r\n          \"3\",\r\n          \"1000\",\r\n          \"Dan is sad\",\r\n          \"Hi everyone! I have been given this amazing opportunity to go to Africa! I would be working with children in orphanages and in their homes. The organization that I am going through is IVHQ volunteering. The things that I need to pay for is for my airfare, which is where the majority of the money will be going. Also, I need to pay for the trip itself. This will cover all of my meals, airport transportation, my housing, and my 24/7 service with the oraginization. I will be leaving on December 17th for one week. Any amount that you give will be greatly appreciated! Thank you so much!\",\r\n          \"Palm Springs\",\r\n          \"CA\",\r\n          \"92234\",\r\n          \"1\",\r\n          \"94\"\r\n        ],\r\n      ]\r\n    }\r\n  },\r\n  \"GlobalParameters\": {}\r\n}"
+      headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer MujZ7ab+kOueM44Y0hTbigu0tG7VGmNkHYts/YRXBBg1fNnCodWvy29uY8UWqxFB9/rNPCBMT5T/HWlOwHIZXg==',
+        'Content-Type': 'application/json'
+      }
+
+      response = requests.request("POST", url, headers=headers, data = payload)
 
 
-class CategoryDetail(APIView):
-    '''Work with an individual Category object'''
-    @csrf_exempt
-    def get(self, request, pk, format=None):
-        cat = Category.objects.get(id=pk)
-        serializer = CategorySerializer(cat)
-        return Response(serializer.data)
-
-    @csrf_exempt
-    def put(self, request, pk, format=None):
-        cat = Category.objects.get(id=pk)
-        serializer = CategorySerializer(cat, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    @csrf_exempt
-    def delete(self, request, pk, format=None):
-        cat = Category.objects.get(id=pk)
-        cat.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
-
-
-
-
-########################
-###  Product
-
-class ProductList(APIView):
-    '''Get all products or create a Product'''
-    @csrf_exempt
-    def get(self, request, format=None):
-        prods = Product.objects.all()
-        if request.query_params.get('name'):
-            prods = prods.filter(name__contains=request.query_params.get('name'))
-        if request.query_params.get('description'):
-            prods = prods.filter(description__contains=request.query_params.get('description'))
-        if request.query_params.get('category'):
-            prods = prods.filter(category__title__contains=request.query_params.get('category'))
-        serializer = ProductSerializer(prods, many=True)
-        return Response(serializer.data)
-
-    @csrf_exempt
-    def post(self, request, format=None):
-        serializer = ProductSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-class ProductDetail(APIView):
-    '''Work with an individual Product object'''
-    @csrf_exempt
-    def get(self, request, pk, format=None):
-        prod = Product.objects.get(id=pk)
-        serializer = ProductSerializer(prod)
-        return Response(serializer.data)
-
-    @csrf_exempt
-    def put(self, request, pk, format=None):
-        prod = Product.objects.get(id=pk)
-        serializer = ProductSerializer(prod, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    @csrf_exempt
-    def delete(self, request, pk, format=None):
-        prod = Product.objects.get(id=pk)
-        prod.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
-
-
-
-########################
-###  Sales
-
-class CreateSale(APIView):
-    '''Creates a sale, including getting a payment intent from Stripe'''
-    @csrf_exempt
-    def post(self, request, format=None):
-        body = json.loads(request.body)
-
-        sale = Sale()
-        sale.name = body['name']
-        sale.address1 = body['address1']
-        sale.address2 = body['address2']
-        sale.city = body['city']
-        sale.state = body['state']
-        sale.zipcode = body['zipcode']
-        sale.total = body['total']
-        sale.items = body['items']
-        sale.payment_intent = stripe.PaymentIntent.create(
-            amount=int(sale.total * 100),
-            currency='usd',
-        )
-        sale.save()
-
-        return Response({
-            'sale_id': sale.id,     # must have called sale.save() or id will be empty
-            'client_secret': sale.payment_intent['client_secret'],
-        })
+      return Response(response.text.encode('utf8'))

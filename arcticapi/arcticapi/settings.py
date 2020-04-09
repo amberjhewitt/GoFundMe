@@ -136,9 +136,3 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.AllowAny',
     ]
 }
-
-
-STRIPE_KEY = 'pk_test_9SkJNz6Or89UeCAJ7OINrFud'
-STRIPE_SECRET = 'sk_test_DUovKJdG4xn3DgSuLp6KEZVL'
-import stripe
-stripe.api_key = STRIPE_SECRET
