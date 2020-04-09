@@ -28,7 +28,7 @@ function App(props) {
                             <Route path="/predict" component={Prediction} />
                             <Route path="/campaign" component={Description} /> 
                             <Route path={"/category/:cid"} component={Home} />
-                            <Route path={"/quality/"} component={Home} />
+                            <Route path={"/quality/:qid"} component={Home} />
                             <Route path="/" component={Home} />
                         </Switch>
                     </bs.Col>

@@ -35,7 +35,7 @@ export default class AppProvider extends React.Component {
         )
     }
 
-    async componentDidMount() {
+   /* async componentDidMount() {
         // load the categories
         // const cat_resp = await axios.get('http://localhost:8000/api/category')
         const categories = {}
@@ -58,7 +58,7 @@ export default class AppProvider extends React.Component {
     }
 
     /** Adds the given item pid to the shopping cart */
-    addToCart = pid => {
+    /*addToCart = pid => {
         this.setState(produce(this.state, draft => {
             // set this item in the cart
             draft.cart[pid] = (draft.cart[pid] || 0) + 1
@@ -73,7 +73,7 @@ export default class AppProvider extends React.Component {
     }
 
     /** Removes the given item pid from the shopping cart */
-    removeFromCart = pid => {
+    /*removeFromCart = pid => {
         this.setState(produce(this.state, draft => {
             delete draft.cart[pid]
 
@@ -87,7 +87,7 @@ export default class AppProvider extends React.Component {
     }
 
     /** Clears the cart */
-    clearCart = () => {
+    /*clearCart = () => {
         this.setState(produce(this.state, draft => {
             draft.cart = {}
             draft.cartCount = 0
@@ -95,7 +95,7 @@ export default class AppProvider extends React.Component {
     }
 
     /** Returns the total price in the cart */
-    getCartTotal = () => {
+    /*getCartTotal = () => {
         let total = 0.0
         for (const [pid, qty] of Object.entries(this.state.cart)) {
             const product = this.state.products[pid]
@@ -104,6 +104,6 @@ export default class AppProvider extends React.Component {
             }
         }
         return total
-    }
+    }*/
 
 }
