@@ -23,9 +23,6 @@ function LeftContainer(props) {
         }
     }
 
-    
-let catName = Object.values(CATEGORIES)
-
     console.log("sdfsdfsdfsd", categories)
 
     // render the categories

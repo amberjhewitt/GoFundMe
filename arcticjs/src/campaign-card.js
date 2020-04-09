@@ -22,21 +22,30 @@ function CampaignCard(props) {
     const goal = props.campaign.goal
     const daysActive = props.campaign.days_active
     const loader = Math.round((parseInt(raised) / parseInt(goal)) * 100)
-    const success = Math.round((parseInt(raised)/parseInt(daysActive)) * 100)
+    const success = Math.round((parseInt(raised)/parseInt(daysActive)))
     let quality = ""
-    
+    let qualityAlt = ""
+    let imageurl = ''
     
     if (success > 100) {
         quality = "High"
+        qualityAlt = 'high'
+        imageurl = '/media/high.png'
     }
     else if(success > 50) {
         quality = "Medium"
+        qualityAlt = 'medium'
+        imageurl = '/media/medium.png'
     }
     else if(success === 0){
-        quality = "Not enough data"
+        quality = "To be determined"
+        qualityAlt = 'none'
+        imageurl = '/media/none.png'
     }
     else{
         quality = "Low"
+        qualityAlt = 'low'
+        imageurl = '/media/low.png'
     }
     
     //END//
@@ -78,8 +87,14 @@ function CampaignCard(props) {
                     <bs.Card.Text>{`Amount Raised: $${props.campaign.current_amount}`}</bs.Card.Text>
                     <bs.Card.Title className="brand">{`Goal: $${props.campaign.goal}`}</bs.Card.Title>
                 </div>
-                <div>
-                    <bs.Card.Text>{`Quality: ${props.quality}`}</bs.Card.Text>
+                <div className='float-lft'>
+                    
+                    <bs.Card.Img
+                        alt='quality image'
+                        src={imageurl}
+                        className="qualityImage"
+                    />
+                    <bs.Card.Text className={`${qualityAlt}Quality`}>{`Campaign Quality: ${quality}`}</bs.Card.Text>
                 </div>
             </bs.Card.Header>
         </bs.Card>
