@@ -20,13 +20,31 @@ function CampaignCard(props) {
     //Progress Bar//
     const raised = props.campaign.current_amount
     const goal = props.campaign.goal
-    const daysActive = props.campaign.daysActive
+    const daysActive = props.campaign.days_active
     const loader = Math.round((parseInt(raised) / parseInt(goal)) * 100)
-    const quality = Math.round((parseInt(raised)/parseInt(daysActive)) * 100)
-
+    const success = Math.round((parseInt(raised)/parseInt(daysActive)) * 100)
+    let quality = ""
+    
+    
+    if (success > 100) {
+        quality = "High"
+    }
+    else if(success > 50) {
+        quality = "Medium"
+    }
+    else if(success === 0){
+        quality = "Not enough data"
+    }
+    else{
+        quality = "Low"
+    }
+    
     //END//
 
     return (
+
+
+
         <bs.Card className="mx-2 my-4">            
             <bs.Card.Header className="border-top text-center bg-brand"><h2 className="pt-2 text-center">{props.campaign.title}</h2></bs.Card.Header>
             <Link
@@ -61,7 +79,10 @@ function CampaignCard(props) {
                 <div className="float-rt">
                     <bs.Card.Text>{`Amount Raised: $${props.campaign.current_amount}`}</bs.Card.Text>
                     <bs.Card.Title className="brand">{`Goal: $${props.campaign.goal}`}</bs.Card.Title>
-                </div>                
+                </div>
+                <div>
+                    <bs.Card.Text>{`Quality: ${props.quality}`}</bs.Card.Text>
+                </div>
             </bs.Card.Header>
         </bs.Card>
     )
