@@ -50,7 +50,7 @@ function LeftContainer(props) {
                 </bs.Nav.Item>
             </bs.Nav>
         </div>
-        <div>
+        {/* <div>
             
              <Link
                  to={`/quality/${quality}`}
@@ -59,7 +59,7 @@ function LeftContainer(props) {
             >
                {quality}
             </Link>
-        </div>
+        </div> */}
         </>
     )
 }
