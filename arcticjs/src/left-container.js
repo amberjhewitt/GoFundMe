@@ -22,7 +22,7 @@ function LeftContainer(props) {
         }
     }
 
-    // render the categories
+  // render the categories
     return (
         <div className="page-wrap">
             <bs.Nav className="flex-column">
