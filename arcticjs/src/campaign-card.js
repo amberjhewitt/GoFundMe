@@ -43,8 +43,6 @@ function CampaignCard(props) {
 
     return (
 
-
-
         <bs.Card className="mx-2 my-4">            
             <bs.Card.Header className="border-top text-center bg-brand"><h2 className="pt-2 text-center">{props.campaign.title}</h2></bs.Card.Header>
             <Link
