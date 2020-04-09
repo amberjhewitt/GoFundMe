@@ -15,8 +15,6 @@ function Checkout(props) {
 export default Checkout
 
 const CheckoutController = props => {
-    const context = React.useContext(AppContext)
-    const total = context.getCartTotal()
 
     return (
         <Formik
@@ -67,7 +65,7 @@ const CheckoutController = props => {
             }}
             >{form => (
                 <>
-                    <PredictionForm form={form} total={total} />
+                    <PredictionForm form={form}/>
                 </>
                     )}</Formik>
                 )
