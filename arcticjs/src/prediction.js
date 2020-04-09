@@ -6,7 +6,6 @@ import { Formik, Form, Field} from 'formik'
 import AppContext from './context'
 import CAMPAIGNS from './full-campaigns.js'
 import CATEGORIES from './categories'
-import $ from 'jquery'
 
 
 
@@ -19,10 +18,6 @@ export default Checkout
 
 const CheckoutController = props => {
     const context = React.useContext(AppContext)
-
-
-
-
     const total = context.getCartTotal()
 
     return (

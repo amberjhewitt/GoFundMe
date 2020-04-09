@@ -53,6 +53,9 @@ function Description(props) {
                         alt={campaign.title}
                         src={campaign.campaign_image_url}
                         className=""
+                        style={{
+                            maxWidth: "250px"
+                        }}
                     />
                     <div>
                         <br />
