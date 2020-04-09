@@ -25,3 +25,16 @@ class Sale(models.Model):
     total = models.DecimalField(max_digits=10, decimal_places=2)
     items = JSONField(default=dict)
     payment_intent = JSONField(default=dict)
+
+
+class Prediction(models.Model):
+    auto_fb_post_mode = models.BinaryField(),                            
+    category_id = models.BigIntegerField(),
+    goal = models.BigIntegerField(),
+    title = models.TextField(),
+    description = models.TextField(),
+    location_city = models.TextField(),
+    location_state = models.TextField(),
+    location_zip = models.TextField(),
+    is_charity = models.BinaryField(),
+    DonationPerDay = models.BigIntegerField(),

@@ -4,9 +4,6 @@ import axios from 'axios'
 import { Formik, Form, Field} from 'formik'
 // import { formatNumber } from './util'
 import AppContext from './context'
-import CAMPAIGNS from './full-campaigns.js'
-import CATEGORIES from './categories'
-import $ from 'jquery'
 
 
 
@@ -48,7 +45,7 @@ const CheckoutController = props => {
 
                 //Django Request
 
-                const resp = await axios.post('http://localhost:8000/api/prediction/', {
+                let userInput = {
                     "auto_fb_post_mode": "False",                            
                     "category_id": 9,
                     "goal": values.goal,
@@ -59,7 +56,9 @@ const CheckoutController = props => {
                     "location_zip": values.zip,
                     "is_charity": "True",
                     "DonationPerDay": 10000,
-                })
+                }
+
+                const resp = await axios.post('http://localhost:8000/api/prediction/', userInput)
 
                 let output = JSON.parse(resp.data)
 
