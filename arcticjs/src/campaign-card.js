@@ -87,6 +87,7 @@ function CampaignCard(props) {
                     <bs.Card.Text>{`Amount Raised: $${props.campaign.current_amount}`}</bs.Card.Text>
                     <bs.Card.Title className="brand">{`Goal: $${props.campaign.goal}`}</bs.Card.Title>
                 </div>
+                <br></br>
                 <div className='float-lft'>
                     
                     <bs.Card.Img

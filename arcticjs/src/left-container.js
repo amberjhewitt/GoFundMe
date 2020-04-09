@@ -26,6 +26,7 @@ function LeftContainer(props) {
 
     // render the categories
     return (
+        <>
         <div className="page-wrap">
             <bs.Nav className="flex-column">
                 <Link
@@ -49,7 +50,17 @@ function LeftContainer(props) {
                 </bs.Nav.Item>
             </bs.Nav>
         </div>
-
+        <div>
+            
+             <Link
+                 to={`/quality/${quality}`}
+                 key={cat}
+                 className="nav-link"
+            >
+               {quality}
+            </Link>
+        </div>
+        </>
     )
 }
 export default LeftContainer;
