@@ -19,10 +19,6 @@ export default Checkout
 
 const CheckoutController = props => {
     const context = React.useContext(AppContext)
-
-
-
-
     const total = context.getCartTotal()
 
     return (
@@ -35,8 +31,6 @@ const CheckoutController = props => {
                 state: "CA",
                 zip: '84606',
                 category: 'Dreams',
-                hasBeneficiary: true, 
-                publiclyVisible: true, 
             }}
             validateOnChange={false}
             validateOnBlur={false}
@@ -102,14 +96,34 @@ const CheckoutController = props => {
                                         <Input title="Campaign Title:" name="title" type="text" />
                                         <Input title="Description" name="description" type="text" />
                                         <Input title="Goal" name="goal" type="number" />
-                                        <Input title="Do you have a beneficiary?" name="hasBeneficiary" type="bool" /> 
-                                        <Input title="Do you want your post to be publicly visible?" name="public" type="bool" /> 
-                                        <Input title="Category" name="category" type="text" /> 
-                                        {/* change category to a dropdown/select list
-                                        map this from the categories.js file */}
-                                        <Input title="City:" name="city" type="text" />
-                                        <Input title="State:" name="state" type="text" />
-                                        <Input title="Zip:" name="zip" type="text" />
+                                        <label>
+                                            Category: <br />
+                                            <select name="category_id">
+                                                <option value="15">-</option>
+                                                <option value="2">Accidents & Emergencies</option>
+                                                <option value="3">Animals & Pets</option>
+                                                <option value="4">Babies, Kids & Family</option>
+                                                <option value="5">Business & Entrepreneurs</option>
+                                                <option value="6">Celebrations & Events</option>
+                                                <option value="7">Community & Neighbors</option>
+                                                <option value="19">Competitions & Pageants</option>
+                                                <option value="8">Creative Arts, Music & Film</option>
+                                                <option value="20">Dreams, Hopes & Wishes</option>
+                                                <option value="17">Education & Learning</option>
+                                                <option value="9">Funerals & Memorials</option>
+                                                <option value="11">Medical, Illness & Healing</option>
+                                                <option value="12">Missions, Faith & Church</option>
+                                                <option value="13">Non-Profits & Charities</option>
+                                                <option value="16">Sports, Teams & Clubs</option>
+                                                <option value="10">Travel & Adventure</option>
+                                                <option value="18">Volunteer & Service</option>
+                                                <option value="14">Weddings & Honeymoons</option>
+                                            </select>
+                                        </label>    <br />
+                                       <Input title="City:" name="city" type="text" />
+                                       <Input title="State:" name="state" type="text" />
+                                       <Input title="Zip:" name="zip" type="text" />
+                                        <label for="charity">Is this for a charity? </label> <input id="charity" name="is_charity" type="checkbox" />
                                     </bs.Card.Body>
                                   
                                 </bs.Card>
