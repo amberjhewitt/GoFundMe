@@ -6,6 +6,11 @@ $warning: #8C5C03;
 $danger: #9E2821;
 $light: #f8f9fa;
 
+.qualityImage{
+    width: 100px;
+    height: auto;
+}
+
 .maxWidth{
     width: 70%;
     max-width: 400px;
@@ -41,13 +46,29 @@ $light: #f8f9fa;
     float: right;
   }
   
-  .float-lft {
+.float-lft {
     float: left;
-    width:45%;
-  }
+    width: 45%;
+}
 
   .brand {
-    color: #03AE6E;
+    color: #75C578;
+  }
+
+  .highQuality{
+      color: #75C578;
+  }
+
+  .mediumQuality{
+    color: #D5DA7C;
+  }
+
+.lowQuality{
+    color: #BB7F7F;
+  }
+
+.noneQuality{
+    color: #D9D9D9;
   }
 
 @import '~bootstrap/scss/bootstrap';        // primary bootstrap library

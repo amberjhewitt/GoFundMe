@@ -16,10 +16,6 @@ export default Checkout
 
 const CheckoutController = props => {
     const context = React.useContext(AppContext)
-
-
-
-
     const total = context.getCartTotal()
 
     return (
