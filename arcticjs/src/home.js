@@ -16,33 +16,49 @@ function Home(props) {
     const match = useRouteMatch("/category/:cid/")
     const matchQuality = useRouteMatch("/quality/:qid/")
     // const cid = match ? parseInt(match.params.cid) : 0
+
     
     if (match) {
         campaignsArr = campaignsArr.filter(campaign => {
+            
+            let success = Math.round(campaign.current_amount/campaign.days_active)
             return campaign.category_id === match.params.cid
         })
     }
-
-    // if (matchQuality) {
-    //     campaignsArr = campaignsArr.filter(campaign => {
-    //         return qualities === match.params.qid
+    
+    if (matchQuality && matchQuality.params.qid === "high") {
+        
+        campaignsArr = campaignsArr.filter(campaign => {
             
-    //     })
+            let success = Math.round(campaign.current_amount/campaign.days_active)
+            return  success >= 100
+        })
+    }
+    
+    else if (matchQuality && matchQuality.params.qid === "med") {
 
-    // if (matchQuality) {
 
-    //     if (match.params.qid === "highQuality"){
+        campaignsArr = campaignsArr.filter(campaign => {
             
-    //         campaignArray = highQuality
-    //     }
-    //     else if(match.params.qid === "medQuality"){}
-    //     campaignArray = campaignsArr.filter(campaign => {
-    //         return qualities === match.params.qid
+            let success = Math.round(campaign.current_amount/campaign.days_active)
+            return   success >= 50 && success < 100
+        })
+    }
+    
+    else if (matchQuality && matchQuality.params.qid === "low") {
+        campaignsArr = campaignsArr.filter(campaign => {
             
-    //     }) 
-    // } 
+            let success = Math.round(campaign.current_amount/campaign.days_active)
+            return  success > 0 && success < 50
+        })
+    }
+    
+    else if (matchQuality && matchQuality.params.qid === "none") {
+        campaignsArr = campaignsArr.filter(campaign => {
+            return  Math.round(campaign.current_amount/campaign.days_active) === 0
+        })
+    }
 
-    console.log("match", match.params.cid)
 
     // slice the products into an array of arrays (e.g. a list of rows of 4 products each)
     const rows = []
