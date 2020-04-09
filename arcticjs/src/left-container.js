@@ -12,7 +12,7 @@ function LeftContainer(props) {
     const categories = {}
     let total = 0
     for (let p of Object.values(CAMPAIGNS)) {
-        console.log(p.category_id)
+        
         if (p.category_id in categories) {
             categories[p.category_id] += 1
             total += 1
@@ -26,7 +26,6 @@ function LeftContainer(props) {
     
 let catName = Object.values(CATEGORIES)
 
-    console.log("sdfsdfsdfsd", categories)
 
     // render the categories
     return (
