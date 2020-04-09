@@ -11,9 +11,7 @@ function LeftContainer(props) {
 
     const categories = {}
     const current_amount = Object.values(CAMPAIGNS).current_amount
-    const raised = props.campaign
-    const daysActive = props.campaign.days_active   
-    const success = Math.round((parseInt(raised)/parseInt(daysActive)))
+    
 
     let total = 0
     let highQuality = []
@@ -23,6 +21,13 @@ function LeftContainer(props) {
 
 
     for (let p of Object.values(CAMPAIGNS)) {
+
+        
+        const raised = p.current_amount  
+        const daysActive = p.days_active   
+        const success = Math.round((parseInt(raised)/parseInt(daysActive)))
+
+        
 // not int
         if (success >100) {
             // add to HighQuality Array
@@ -36,7 +41,7 @@ function LeftContainer(props) {
             noQuality.push(p)
         }
 
-        console.log(p)
+        // console.log(p)
 
         //const success = Math.round((parseInt(raised) / parseInt(daysActive)))
 
@@ -60,22 +65,22 @@ function LeftContainer(props) {
     let qualities = [highQuality, medQuality, lowQuality, noQuality]
     console.log(qualities)
 
-    console.log("sdfsdfsdfsd", categories)
-
     // render the categories
     return (
         <>
         <div className="page-wrap">
             <bs.Nav className="flex-column">
-                <Link
+                <Link 
                     to={`/`}
                     className="nav-link"
                 >
                        All Campaigns ({total})
                 </Link>
+                <hr />
 
                 {/* QUALITY CATEGORIES LISTED HERE */}
                 <bs.Nav.Item>
+                    <bs.DropdownButton id="dropdown-basic-button" title="Filter By Categories">
                     {Object.entries(categories).map(([cat,count]) => (
                         <Link
                             to={`/category/${cat}`}
@@ -85,40 +90,42 @@ function LeftContainer(props) {
                             {CATEGORIES[cat]} ({count})
                         </Link>
                         ))}
+                        
+                    </bs.DropdownButton>
                 </bs.Nav.Item>
                 <bs.Nav.Item>
-                    {/* show quality name and length of array */}
-                    {/* {qualities.forEach((level, index) => (
+                    
+                    <hr />
+
+                    <bs.DropdownButton id="dropdown-basic-button" title="Filter By Qualities">
+                        <bs.Dropdown.Item href="#/action-1">
+                            <Link
+                                to={`/quality/high`}
+                                key={highQuality.id}
+                                >High Quality ({highQuality.length})
+                            </Link>
+                        </bs.Dropdown.Item>
+                        <bs.Dropdown.Item href="#/action-1">
+                            <Link
+                                to={`/quality/med`}
+                                key={medQuality.id}
+                                >Medium Quality ({medQuality.length})
+                            </Link>
+                        </bs.Dropdown.Item>
+                        <bs.Dropdown.Item href="#/action-1">
                         <Link
-                            to={`/quality/${level}`}
-                            key={level}
-                            className="nav-link"
-                        >
-                            Hello{level} ({level.length})
-                        </Link>
-                    ))} */}
-
-{/* const numbers = [1, 2, 3, 4, 5];
-const listItems = numbers.map((number) =>
-  <li>{number}</li>
-); */}
-
-<Link
-    to={`/quality/highQuality`}
-    key={highQuality.id}
->High Quality ({highQuality.length})</Link>
-<Link
-    to={`/quality/${medQuality}`}
-    key={medQuality.id}
->Medium Quality ({medQuality.length})</Link>
-<Link
-    to={`/quality/${lowQuality}`}
-    key={lowQuality.id}
->Low Quality ({lowQuality.length})</Link>
-<Link
-    to={`/quality/${noQuality}`}
-    key={noQuality.id}
->Low Quality ({noQuality.length})</Link>
+                        to={`/quality/low`}
+                        key={lowQuality.id}
+                    >Low Quality ({lowQuality.length})</Link>
+                        </bs.Dropdown.Item>
+                        <bs.Dropdown.Item href="#/action-1">
+                            <Link
+                                to={`/quality/none`}
+                                key={noQuality.id}
+                                >No Quality ({noQuality.length})
+                            </Link>
+                        </bs.Dropdown.Item>
+                    </bs.DropdownButton>
 
                 </bs.Nav.Item>
             </bs.Nav>
