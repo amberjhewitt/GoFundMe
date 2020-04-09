@@ -13,7 +13,7 @@ function Home(props) {
 
     // get an array of products, then filter to the current category
     const match = useRouteMatch("/category/:cid/")
-    const cid = match ? parseInt(match.params.cid) : 0
+    // const cid = match ? parseInt(match.params.cid) : 0
     
     if (match) {
         campaignsArr = campaignsArr.filter(campaign => {

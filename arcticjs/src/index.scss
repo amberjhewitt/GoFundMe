@@ -6,6 +6,11 @@ $warning: #8C5C03;
 $danger: #9E2821;
 $light: #f8f9fa;
 
+
+#page-wrap {
+    position: relative;
+}
+
 .maxWidth{
     width: 70%;
     max-width: 400px;
@@ -41,13 +46,15 @@ $light: #f8f9fa;
     float: right;
   }
   
-  .float-lft {
+.float-lft {
     float: left;
-    width:45%;
-  }
+    width: 45%;
+}
 
-  .brand {
+.brand {
     color: #03AE6E;
-  }
+}
+
+
 
 @import '~bootstrap/scss/bootstrap';        // primary bootstrap library
