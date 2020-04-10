@@ -39,18 +39,24 @@ const CheckoutController = props => {
 
                 //Django Request
 
+                if(values.is_charity != true) {
+                    values.is_charity = false
+                }
+
                 let userInput = {
                     "auto_fb_post_mode": "False",                            
-                    "category_id": 9,
+                    "category_id": 11,
                     "goal": values.goal,
                     "title": values.title,
                     "description": values.description,
                     "location_city": values.city,
                     "location_state": values.state,
                     "location_zip": values.zip,
-                    "is_charity": "True",
-                    "DonationPerDay": 10000,
+                    "is_charity": values.is_charity,
+                    "DonationPerDay": 144.12,
                 }
+                
+                console.log(userInput)
 
                 const resp = await axios.post('http://localhost:8000/api/prediction/', userInput)
 
@@ -155,7 +161,7 @@ const CheckoutController = props => {
                                        <Input title="City:" name="city" type="text" />
                                        <Input title="State:" name="state" type="text" />
                                        <Input title="Zip:" name="zip" type="text" />
-                                        <label for="charity">Is this for a charity? </label> <input id="charity" name="is_charity" type="checkbox" />
+                                        <Input id="Is this for a charity?" name="is_charity" type="checkbox" />
                                     </bs.Card.Body>
                                   
                                 </bs.Card>
@@ -196,7 +202,7 @@ const CheckoutController = props => {
                             <bs.Form.Label>{props.title}</bs.Form.Label>
                         }
                         <bs.Form.Control
-                            type="text"  // ...rProps.field may override this default
+                            type={props.type}  // ...rProps.field may override this default
                             disabled={rProps.form.isSubmitting}
             placeholder={props.placeholder}
             {...rProps.field}
