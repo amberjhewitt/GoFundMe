@@ -59,8 +59,43 @@ const CheckoutController = props => {
                 let result = parseFloat(output.Results.output1.value.Values[0], 2)
 
                 console.log(result)   
+
+                let goalCompletion = parseInt(parseInt(userInput.goal)/result)
+                console.log(goalCompletion)
+
+                let quality = ""
+                let qualityAlt = ""
+                let imageurl = ''
+                let qualityText = ''
+                
+                if (result >= 100) {
+                    quality = "High"
+                    qualityAlt = 'high'
+                    qualityText = "Way to go! You're campaign is high quality. You're going to have a lot of success!"
+                    imageurl = '/media/high.png'
+                }
+                else if(result >= 50) {
+                    quality = "Medium"
+                    qualityAlt = 'medium'
+                    qualityText = "Nice work! You're campaing could still use some work. Keep making improvements!"
+                    imageurl = '/media/medium.png'
+                }
+                else if(result === 0){
+                    quality = "To be determined"
+                    qualityAlt = 'none'
+                    qualityText = 'Hmmm... something must not be right. Please review your inputs.'
+                    imageurl = '/media/none.png'
+                }
+                else{
+                    quality = "Low"
+                    qualityAlt = 'low'
+                    qualityText = 'Your campaign quality is low. Try making more improvements to your description for better results!'
+                    imageurl = '/media/low.png'
+                }
                 
                 document.getElementById('result').innerHTML = "Predicted amount of Donations per Day: $<strong>" + result + "</strong>"
+                document.getElementById('goalEstimate').innerHTML = "Anticipated completion time: <strong>" + goalCompletion + " days</strong>"
+                
 
             }}
             >{form => (
@@ -130,7 +165,21 @@ const CheckoutController = props => {
                                 </bs.Button>
                                 <br />
                                 <br />
-                                <h3 id="result"></h3>
+                                <div className='float-lft'>
+                                    <h3 id="result"></h3>
+                                    <h3 id="goalEstimate"></h3>
+                                    <bs.Image
+                                        alt='quality image'
+                                        src={props.imageurl}
+                                        className="qualityImage"
+                                    />
+                                    <bs.Col className={`${props.qualityAlt}Quality`}>
+                                        {`Campaign Quality: ${props.quality}`}
+                                    </bs.Col>
+                                    <bs.Col className={`${props.qualityAlt}Quality`}>
+                                        {props.qualityText}
+                                    </bs.Col>
+                                </div>
                             </bs.Col>
                         </bs.Row>
                     </bs.Container>
