@@ -2,8 +2,6 @@ import React from 'react'
 import * as bs from 'react-bootstrap'
 import axios from 'axios'
 import { Formik, Form, Field} from 'formik'
-// import { formatNumber } from './util'
-import AppContext from './context'
 
 
 
@@ -17,50 +15,99 @@ export default Checkout
 const CheckoutController = props => {
 
     return (
+
         <div>
-            <Formik
-                initialValues={{
-                    goal: '1000',
-                    title: 'Daniel needs a home',
-                    description: 'Daniel has been homeless for a little over 3 years. He hasnt had many opportunities to find work after escaping the drug cartel.',
-                    city: "Palm Springs",
-                    state: "CA",
-                    zip: '84606',
-                    category: 'Dreams',
-                }}
-                validateOnChange={false}
-                validateOnBlur={false}
-                validate={values => {
-                    console.log('validating', values)
-                    return {}
-                }}
-                onSubmit={async (values, actions) => {
-                    console.log('submit', values)
+
+        <Formik
+            initialValues={{
+                goal: '',
+                title: '',
+                description: '',
+                city: "",
+                state: "",
+                zip: '',
+                category: '',
+            }}
+            validateOnChange={false}
+            validateOnBlur={false}
+            validate={values => {
+                return {}
+            }}
+            onSubmit={async (values, actions) => {
 
 
-                    //Django Request
+                //Django Request
 
-                    let userInput = {
-                        "auto_fb_post_mode": "False",                            
-                        "category_id": 9,
-                        "goal": values.goal,
-                        "title": values.title,
-                        "description": values.description,
-                        "location_city": values.city,
-                        "location_state": values.state,
-                        "location_zip": values.zip,
-                        "is_charity": "True",
-                        "DonationPerDay": 10000,
-                    }
+                if(values.is_charity != true) {
+                    values.is_charity = false
+                }
 
-                    const resp = await axios.post('http://localhost:8000/api/prediction/', userInput)
+                let userInput = {       
+                    "goal": values.goal,
+                    "title": values.title,
+                    "description": values.description,
+                    "location_city": values.city,
+                    "location_state": values.state,
+                    "location_zip": values.zip,
+                    "is_charity": values.is_charity,
+                    "DonationPerDay": 125.00,
+                }
 
-                    let output = JSON.parse(resp.data)
+                //Send request to server (view.py)
+                const resp = await axios.post('http://localhost:8000/api/prediction/', userInput)
 
-                    let result = parseFloat(output.Results.output1.value.Values[0], 2)
+                let output = JSON.parse(resp.data)
 
-                    console.log(result)   
+                let result = parseFloat(output.Results.output1.value.Values[0], 2)
+
+                let goalCompletion = parseInt(parseInt(userInput.goal)/result)
+
+                document.getElementById('result').innerHTML = "Predicted amount of Donations per Day: <strong>$" + result + "</strong>"
+                document.getElementById('goalEstimate').innerHTML = "Anticipated completion time: <strong>" + goalCompletion + " days</strong>"
+
+                let quality = ""
+                let qualityAlt = ""
+                let imageurl = ''
+                let qualityText = ''
                 
+                if (result >= 100) {
+                    quality = "High"
+                    qualityAlt = 'high'
+                    document.getElementById('qualDesc').className = "highQuality"
+                    document.getElementById('qualDesc').innerHTML = "Campaign Quality: High"
+                    document.getElementById('qualityText').className = "qualText"
+                    document.getElementById('qualityText').innerHTML = "Way to go! You're campaign is high quality. You're going to have a lot of success!"
+                    document.getElementById('qualityImg').innerHTML = "<img alt='quality image' src='/media/high.png' className='qualityImage'/>"
+                    
+                }
+                else if(result >= 50) {
+                    quality = "Medium"
+                    qualityAlt = 'medium'
+                    document.getElementById('qualDesc').className = "mediumQuality"
+                    document.getElementById('qualDesc').innerHTML = "Campaign Quality: Medium"
+                    document.getElementById('qualityText').className = "qualText"
+                    document.getElementById('qualityText').innerHTML = "Nice work! You're campaign could still use some work. Keep making improvements!"
+                    document.getElementById('qualityImg').innerHTML = "<img alt='quality image' src='/media/medium.png' className='qualityImage'/>"
+                }
+                else if(result > 0){
+                    quality = "To be determined"
+                    qualityAlt = 'none'
+                    document.getElementById('qualDesc').className = "noneQuality"
+                    document.getElementById('qualDesc').innerHTML = "Campaign Quality: To be determined"
+                    document.getElementById('qualityText').className = "qualText"
+                    document.getElementById('qualityText').innerHTML = "Hmmm... something must not be right. Please review your inputs."
+                    document.getElementById('qualityImg').innerHTML = "<img alt='quality image' src='/media/low.png' className='qualityImage'/>"
+                }
+                else{
+                    quality = "Low"
+                    qualityAlt = 'low'
+                    document.getElementById('qualDesc').className = "lowQuality"
+                    document.getElementById('qualDesc').innerHTML = "Campaign Quality: Low"
+                    document.getElementById('qualityText').className = "qualText"
+                    document.getElementById('qualityText').innerHTML = "Your campaign quality is low. Try making more improvements to your description for better results!"
+                    document.getElementById('qualityImg').innerHTML = "<img alt='quality image' src='/media/none.png' className='qualityImage'/>"
+                }
+               
                     document.getElementById('result').innerHTML = "Predicted amount of Donations per Day: $<strong>" + result + "</strong>"
 
                 }}
@@ -110,34 +157,10 @@ const CheckoutController = props => {
                                         <Input title="Campaign Title:" name="title" type="text" />
                                         <Input title="Description" name="description" type="text" />
                                         <Input title="Goal" name="goal" type="number" />
-                                        <label>
-                                            Category: <br />
-                                            <select name="category_id">
-                                                <option value="15">-</option>
-                                                <option value="2">Accidents & Emergencies</option>
-                                                <option value="3">Animals & Pets</option>
-                                                <option value="4">Babies, Kids & Family</option>
-                                                <option value="5">Business & Entrepreneurs</option>
-                                                <option value="6">Celebrations & Events</option>
-                                                <option value="7">Community & Neighbors</option>
-                                                <option value="19">Competitions & Pageants</option>
-                                                <option value="8">Creative Arts, Music & Film</option>
-                                                <option value="20">Dreams, Hopes & Wishes</option>
-                                                <option value="17">Education & Learning</option>
-                                                <option value="9">Funerals & Memorials</option>
-                                                <option value="11">Medical, Illness & Healing</option>
-                                                <option value="12">Missions, Faith & Church</option>
-                                                <option value="13">Non-Profits & Charities</option>
-                                                <option value="16">Sports, Teams & Clubs</option>
-                                                <option value="10">Travel & Adventure</option>
-                                                <option value="18">Volunteer & Service</option>
-                                                <option value="14">Weddings & Honeymoons</option>
-                                            </select>
-                                        </label>    <br />
                                        <Input title="City:" name="city" type="text" />
                                        <Input title="State:" name="state" type="text" />
                                        <Input title="Zip:" name="zip" type="text" />
-                                        <label for="charity">Is this for a charity? </label> <input id="charity" name="is_charity" type="checkbox" />
+                                        <label for="charity">Is this a charity?</label><Input id="charity" name="is_charity" type="checkbox" />
                                     </bs.Card.Body>
                                   
                                 </bs.Card>
@@ -148,6 +171,13 @@ const CheckoutController = props => {
                                 <br />
                                 <br />
                                 <h3 id="result"></h3>
+                                <div className='center'>
+                                    <h3 id="result"></h3>
+                                    <h3 id="goalEstimate"></h3>
+                                    <p id="qualDesc"></p>
+                                    <p id="qualityImg"></p>
+                                    <h3 id="qualityText"></h3>
+                                </div>
                             </bs.Col>
                         </bs.Row>
                     </bs.Container>
@@ -168,7 +198,7 @@ const CheckoutController = props => {
                             <bs.Form.Label>{props.title}</bs.Form.Label>
                         }
                         <bs.Form.Control
-                            type="text"  // ...rProps.field may override this default
+                            type={props.type}  // ...rProps.field may override this default
                             disabled={rProps.form.isSubmitting}
             placeholder={props.placeholder}
             {...rProps.field}
