@@ -2,8 +2,6 @@ import React from 'react'
 import * as bs from 'react-bootstrap'
 import axios from 'axios'
 import { Formik, Form, Field} from 'formik'
-// import { formatNumber } from './util'
-import AppContext from './context'
 
 
 
@@ -19,22 +17,20 @@ const CheckoutController = props => {
     return (
         <Formik
             initialValues={{
-                goal: '1000',
-                title: 'Daniel needs a home',
-                description: 'Daniel has been homeless for a little over 3 years. He hasnt had many opportunities to find work after escaping the drug cartel.',
-                city: "Palm Springs",
-                state: "CA",
-                zip: '84606',
-                category: 'Dreams',
+                goal: '',
+                title: '',
+                description: '',
+                city: "",
+                state: "",
+                zip: '',
+                category: '',
             }}
             validateOnChange={false}
             validateOnBlur={false}
             validate={values => {
-                console.log('validating', values)
                 return {}
             }}
             onSubmit={async (values, actions) => {
-                console.log('submit', values)
 
 
                 //Django Request
@@ -43,9 +39,7 @@ const CheckoutController = props => {
                     values.is_charity = false
                 }
 
-                let userInput = {
-                    "auto_fb_post_mode": "False",                            
-                    "category_id": 11,
+                let userInput = {       
                     "goal": values.goal,
                     "title": values.title,
                     "description": values.description,
@@ -53,15 +47,13 @@ const CheckoutController = props => {
                     "location_state": values.state,
                     "location_zip": values.zip,
                     "is_charity": values.is_charity,
-                    "DonationPerDay": 144.12,
+                    "DonationPerDay": 125.00,
                 }
-                
-                console.log(userInput)
 
+                //Send request to server (view.py)
                 const resp = await axios.post('http://localhost:8000/api/prediction/', userInput)
 
                 let output = JSON.parse(resp.data)
-                console.log("++++++++++++++", output)
 
                 let result = parseFloat(output.Results.output1.value.Values[0], 2)
 
@@ -99,8 +91,7 @@ const CheckoutController = props => {
                     document.getElementById('qualityText').innerHTML = "Campaign Quality: Your campaign quality is low. Try making more improvements to your description for better results!"
                     document.getElementById('qualityImg').innerHTML = "<img alt='quality image' src='/media/none.png' className='qualityImage'/>"
                 }
-                
-                
+
                 
 
             }}
@@ -147,34 +138,10 @@ const CheckoutController = props => {
                                         <Input title="Campaign Title:" name="title" type="text" />
                                         <Input title="Description" name="description" type="text" />
                                         <Input title="Goal" name="goal" type="number" />
-                                        <label>
-                                            Category: <br />
-                                            <select name="category_id">
-                                                <option value="15">-</option>
-                                                <option value="2">Accidents & Emergencies</option>
-                                                <option value="3">Animals & Pets</option>
-                                                <option value="4">Babies, Kids & Family</option>
-                                                <option value="5">Business & Entrepreneurs</option>
-                                                <option value="6">Celebrations & Events</option>
-                                                <option value="7">Community & Neighbors</option>
-                                                <option value="19">Competitions & Pageants</option>
-                                                <option value="8">Creative Arts, Music & Film</option>
-                                                <option value="20">Dreams, Hopes & Wishes</option>
-                                                <option value="17">Education & Learning</option>
-                                                <option value="9">Funerals & Memorials</option>
-                                                <option value="11">Medical, Illness & Healing</option>
-                                                <option value="12">Missions, Faith & Church</option>
-                                                <option value="13">Non-Profits & Charities</option>
-                                                <option value="16">Sports, Teams & Clubs</option>
-                                                <option value="10">Travel & Adventure</option>
-                                                <option value="18">Volunteer & Service</option>
-                                                <option value="14">Weddings & Honeymoons</option>
-                                            </select>
-                                        </label>    <br />
                                        <Input title="City:" name="city" type="text" />
                                        <Input title="State:" name="state" type="text" />
                                        <Input title="Zip:" name="zip" type="text" />
-                                        <Input id="Is this for a charity?" name="is_charity" type="checkbox" />
+                                        <label for="charity">Is this a charity?</label><Input id="charity" name="is_charity" type="checkbox" />
                                     </bs.Card.Body>
                                   
                                 </bs.Card>
