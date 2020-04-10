@@ -15,6 +15,9 @@ export default Checkout
 const CheckoutController = props => {
 
     return (
+
+        <div>
+
         <Formik
             initialValues={{
                 goal: '',
@@ -104,17 +107,17 @@ const CheckoutController = props => {
                     document.getElementById('qualityText').innerHTML = "Your campaign quality is low. Try making more improvements to your description for better results!"
                     document.getElementById('qualityImg').innerHTML = "<img alt='quality image' src='/media/none.png' className='qualityImage'/>"
                 }
+               
+                    document.getElementById('result').innerHTML = "Predicted amount of Donations per Day: $<strong>" + result + "</strong>"
 
-                
+                }}
+                >{form => (
+                    <>
+                        <PredictionForm form={form}/>
+                    </>
+                )}</Formik>
 
-            }}
-            >{form => (
-                <>
-                    <PredictionForm form={form}/>
-                </>
-                    )}</Formik>
-                
-                {/* Pop Up Suggestions */}
+            {/* Pop Up Suggestions */}
             <div className="proTips">
                 <h3>Want to improve your chances of a successful campaign?</h3>
                 <p>
@@ -127,8 +130,11 @@ const CheckoutController = props => {
                     </ul>
                 </p>
             </div>
-                )
-            }
+        </div>
+    )
+
+}
+
 
             /**
              * The form layout/html.
@@ -164,6 +170,7 @@ const CheckoutController = props => {
                                 </bs.Button>
                                 <br />
                                 <br />
+                                <h3 id="result"></h3>
                                 <div className='center'>
                                     <h3 id="result"></h3>
                                     <h3 id="goalEstimate"></h3>
