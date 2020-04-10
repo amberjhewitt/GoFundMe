@@ -84,8 +84,8 @@ function CampaignCard(props) {
                     <bs.ProgressBar style={{ width: '100%' }} variant={'success'} animated now={loader} label={`${loader}%`} />
                 </div>
                 <div className="float-rt">
-                    <bs.Card.Text>{`Amount Raised: $${props.campaign.current_amount}`}</bs.Card.Text>
-                    <bs.Card.Title className="brand">{`Goal: $${props.campaign.goal}`}</bs.Card.Title>
+                    <bs.Card.Text>{`Amount Raised: $${Number(props.campaign.current_amount).toLocaleString()}`}</bs.Card.Text>
+                    <bs.Card.Title className="brand">{`Goal: $${Number(props.campaign.goal).toLocaleString()}`}</bs.Card.Title>
                 </div>
                 <br></br>
                 <div className='float-lft'>

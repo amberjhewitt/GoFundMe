@@ -17,59 +17,76 @@ export default Checkout
 const CheckoutController = props => {
 
     return (
-        <Formik
-            initialValues={{
-                goal: '1000',
-                title: 'Daniel needs a home',
-                description: 'Daniel has been homeless for a little over 3 years. He hasnt had many opportunities to find work after escaping the drug cartel.',
-                city: "Palm Springs",
-                state: "CA",
-                zip: '84606',
-                category: 'Dreams',
-            }}
-            validateOnChange={false}
-            validateOnBlur={false}
-            validate={values => {
-                console.log('validating', values)
-                return {}
-            }}
-            onSubmit={async (values, actions) => {
-                console.log('submit', values)
+        <div>
+            <Formik
+                initialValues={{
+                    goal: '1000',
+                    title: 'Daniel needs a home',
+                    description: 'Daniel has been homeless for a little over 3 years. He hasnt had many opportunities to find work after escaping the drug cartel.',
+                    city: "Palm Springs",
+                    state: "CA",
+                    zip: '84606',
+                    category: 'Dreams',
+                }}
+                validateOnChange={false}
+                validateOnBlur={false}
+                validate={values => {
+                    console.log('validating', values)
+                    return {}
+                }}
+                onSubmit={async (values, actions) => {
+                    console.log('submit', values)
 
 
-                //Django Request
+                    //Django Request
 
-                let userInput = {
-                    "auto_fb_post_mode": "False",                            
-                    "category_id": 9,
-                    "goal": values.goal,
-                    "title": values.title,
-                    "description": values.description,
-                    "location_city": values.city,
-                    "location_state": values.state,
-                    "location_zip": values.zip,
-                    "is_charity": "True",
-                    "DonationPerDay": 10000,
-                }
+                    let userInput = {
+                        "auto_fb_post_mode": "False",                            
+                        "category_id": 9,
+                        "goal": values.goal,
+                        "title": values.title,
+                        "description": values.description,
+                        "location_city": values.city,
+                        "location_state": values.state,
+                        "location_zip": values.zip,
+                        "is_charity": "True",
+                        "DonationPerDay": 10000,
+                    }
 
-                const resp = await axios.post('http://localhost:8000/api/prediction/', userInput)
+                    const resp = await axios.post('http://localhost:8000/api/prediction/', userInput)
 
-                let output = JSON.parse(resp.data)
+                    let output = JSON.parse(resp.data)
 
-                let result = parseFloat(output.Results.output1.value.Values[0], 2)
+                    let result = parseFloat(output.Results.output1.value.Values[0], 2)
 
-                console.log(result)   
+                    console.log(result)   
                 
-                document.getElementById('result').innerHTML = "Predicted amount of Donations per Day: $<strong>" + result + "</strong>"
+                    document.getElementById('result').innerHTML = "Predicted amount of Donations per Day: $<strong>" + result + "</strong>"
 
-            }}
-            >{form => (
-                <>
-                    <PredictionForm form={form}/>
-                </>
-                    )}</Formik>
-                )
-            }
+                }}
+                >{form => (
+                    <>
+                        <PredictionForm form={form}/>
+                    </>
+                )}</Formik>
+
+            {/* Pop Up Suggestions */}
+            <div className="proTips">
+                <h3>Want to improve your chances of a successful campaign?</h3>
+                <p>
+                    These suggestions come directly from our prediction model!
+                    <ul>
+                        <li>Make sure your title is specific to the cause. For example, if COVID-19 factors into your situation, include that key word!</li>
+                        <li>Description: Explain your cause in detail.</li>
+                        <li>Choose the category that best describes your fundraiser.</li>
+                        <li>Don't forget to post to Facebook!</li>
+                    </ul>
+                </p>
+            </div>
+        </div>
+    )
+
+}
 
 
             /**
