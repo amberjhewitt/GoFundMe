@@ -76,7 +76,7 @@ function LeftContainer(props) {
 
                 {/* QUALITY CATEGORIES LISTED HERE */}
                 <bs.Nav.Item>
-                    <bs.DropdownButton id="dropdown-basic-button" title="Filter By Categories">
+                    <bs.DropdownButton id="dropdown-basic-button" title="Filter By Category">
                     {Object.entries(categories).map(([cat,count]) => (
                         <Link
                             to={`/category/${cat}`}
@@ -90,8 +90,9 @@ function LeftContainer(props) {
                     </bs.DropdownButton>
                 </bs.Nav.Item>                    
                     <hr />
-                <bs.Nav.Item>
-                    <bs.DropdownButton id="dropdown-basic-button" title="Filter By Qualities">
+
+                    <bs.DropdownButton id="dropdown-basic-button" title="Filter By Quality">
+                        <bs.Dropdown.Item href="#/action-1">
                             <Link
                                 to={`/quality/high`}
                                 key={highQuality.id}

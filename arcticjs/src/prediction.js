@@ -103,9 +103,22 @@ const CheckoutController = props => {
                     <PredictionForm form={form}/>
                 </>
                     )}</Formik>
+                
+                {/* Pop Up Suggestions */}
+            <div className="proTips">
+                <h3>Want to improve your chances of a successful campaign?</h3>
+                <p>
+                    These suggestions come directly from our prediction model!
+                    <ul>
+                        <li>Make sure your title is specific to the cause. For example, if COVID-19 factors into your situation, include that key word!</li>
+                        <li>Description: Explain your cause in detail.</li>
+                        <li>Choose the category that best describes your fundraiser.</li>
+                        <li>Don't forget to post to Facebook!</li>
+                    </ul>
+                </p>
+            </div>
                 )
             }
-
 
             /**
              * The form layout/html.

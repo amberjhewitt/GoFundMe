@@ -5,10 +5,24 @@ $info: darken(#004876, 20%);
 $warning: #8C5C03;
 $danger: #9E2821;
 $light: #f8f9fa;
+$gofundme: #00b964;
 
 .qualityImage{
     width: 100px;
     height: auto;
+}
+
+.proTips {
+    background-color: $gofundme;
+    padding: 20px; 
+    border-radius: 15px;
+    color: white;
+    margin: 30px;
+    width: 500px;
+}
+
+.proTips h3 {
+    text-align: center;
 }
 
 .maxWidth{

@@ -59,8 +59,8 @@ function Description(props) {
                     />
                     <div>
                         <br />
-                        <bs.Card.Text>{`Amount Raised: $${campaign.current_amount}`}</bs.Card.Text>
-                        <bs.Card.Title className="brand">{`Goal: $${campaign.goal}`}</bs.Card.Title>                        
+                        <bs.Card.Text>{`Amount Raised: $${Number(campaign.current_amount).toLocaleString()}`}</bs.Card.Text>
+                        <bs.Card.Title className="brand">{`Goal: $${Number(campaign.goal).toLocaleString()}`}</bs.Card.Title>                        
                         <bs.ProgressBar style={{width: '100%'}} variant={'success'} animated now={loader} label={`${loader}%`}/>
                     </div>
                 </div>
