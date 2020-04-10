@@ -55,6 +55,7 @@ const CheckoutController = props => {
                 const resp = await axios.post('http://localhost:8000/api/prediction/', userInput)
 
                 let output = JSON.parse(resp.data)
+                console.log("++++++++++++++", output)
 
                 let result = parseFloat(output.Results.output1.value.Values[0], 2)
 

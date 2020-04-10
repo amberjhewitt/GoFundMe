@@ -59,11 +59,7 @@ function LeftContainer(props) {
         }
     }
 
-    console.log("highQuality", highQuality)
-    console.log("medQuality", medQuality)
-    console.log("lowQuality", lowQuality)
     let qualities = [highQuality, medQuality, lowQuality, noQuality]
-    console.log(qualities)
 
     // render the categories
     return (
@@ -92,39 +88,33 @@ function LeftContainer(props) {
                         ))}
                         
                     </bs.DropdownButton>
-                </bs.Nav.Item>
-                <bs.Nav.Item>
-                    
+                </bs.Nav.Item>                    
                     <hr />
-
+                <bs.Nav.Item>
                     <bs.DropdownButton id="dropdown-basic-button" title="Filter By Qualities">
-                        <bs.Dropdown.Item href="#/action-1">
                             <Link
                                 to={`/quality/high`}
                                 key={highQuality.id}
                                 >High Quality ({highQuality.length})
                             </Link>
-                        </bs.Dropdown.Item>
-                        <bs.Dropdown.Item href="#/action-1">
+                            <br />
                             <Link
                                 to={`/quality/med`}
                                 key={medQuality.id}
                                 >Medium Quality ({medQuality.length})
                             </Link>
-                        </bs.Dropdown.Item>
-                        <bs.Dropdown.Item href="#/action-1">
-                        <Link
-                        to={`/quality/low`}
-                        key={lowQuality.id}
-                    >Low Quality ({lowQuality.length})</Link>
-                        </bs.Dropdown.Item>
-                        <bs.Dropdown.Item href="#/action-1">
+                            <br />
+                            <Link
+                                to={`/quality/low`}
+                                key={lowQuality.id}
+                                >Low Quality ({lowQuality.length})
+                            </Link>
+                            <br />
                             <Link
                                 to={`/quality/none`}
                                 key={noQuality.id}
                                 >No Quality ({noQuality.length})
                             </Link>
-                        </bs.Dropdown.Item>
                     </bs.DropdownButton>
 
                 </bs.Nav.Item>
