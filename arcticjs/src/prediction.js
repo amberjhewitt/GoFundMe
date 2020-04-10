@@ -72,25 +72,38 @@ const CheckoutController = props => {
                 if (result >= 100) {
                     quality = "High"
                     qualityAlt = 'high'
-                    document.getElementById('qualityText').innerHTML = "Campaign Quality: Way to go! You're campaign is high quality. You're going to have a lot of success!"
+                    document.getElementById('qualDesc').className = "highQuality"
+                    document.getElementById('qualDesc').innerHTML = "Campaign Quality: High"
+                    document.getElementById('qualityText').className = "qualText"
+                    document.getElementById('qualityText').innerHTML = "Way to go! You're campaign is high quality. You're going to have a lot of success!"
                     document.getElementById('qualityImg').innerHTML = "<img alt='quality image' src='/media/high.png' className='qualityImage'/>"
+                    
                 }
                 else if(result >= 50) {
                     quality = "Medium"
                     qualityAlt = 'medium'
-                    document.getElementById('qualityText').innerHTML = "Campaign Quality: Nice work! You're campaing could still use some work. Keep making improvements!"
+                    document.getElementById('qualDesc').className = "mediumQuality"
+                    document.getElementById('qualDesc').innerHTML = "Campaign Quality: Medium"
+                    document.getElementById('qualityText').className = "qualText"
+                    document.getElementById('qualityText').innerHTML = "Nice work! You're campaign could still use some work. Keep making improvements!"
                     document.getElementById('qualityImg').innerHTML = "<img alt='quality image' src='/media/medium.png' className='qualityImage'/>"
                 }
                 else if(result > 0){
                     quality = "To be determined"
                     qualityAlt = 'none'
-                    document.getElementById('qualityText').innerHTML = "Campaign Quality: Hmmm... something must not be right. Please review your inputs."
+                    document.getElementById('qualDesc').className = "noneQuality"
+                    document.getElementById('qualDesc').innerHTML = "Campaign Quality: To be determined"
+                    document.getElementById('qualityText').className = "qualText"
+                    document.getElementById('qualityText').innerHTML = "Hmmm... something must not be right. Please review your inputs."
                     document.getElementById('qualityImg').innerHTML = "<img alt='quality image' src='/media/low.png' className='qualityImage'/>"
                 }
                 else{
                     quality = "Low"
                     qualityAlt = 'low'
-                    document.getElementById('qualityText').innerHTML = "Campaign Quality: Your campaign quality is low. Try making more improvements to your description for better results!"
+                    document.getElementById('qualDesc').className = "lowQuality"
+                    document.getElementById('qualDesc').innerHTML = "Campaign Quality: Low"
+                    document.getElementById('qualityText').className = "qualText"
+                    document.getElementById('qualityText').innerHTML = "Your campaign quality is low. Try making more improvements to your description for better results!"
                     document.getElementById('qualityImg').innerHTML = "<img alt='quality image' src='/media/none.png' className='qualityImage'/>"
                 }
                 
@@ -165,16 +178,12 @@ const CheckoutController = props => {
                                 </bs.Button>
                                 <br />
                                 <br />
-                                <div className='float-lft'>
+                                <div className='center'>
                                     <h3 id="result"></h3>
                                     <h3 id="goalEstimate"></h3>
+                                    <p id="qualDesc"></p>
                                     <p id="qualityImg"></p>
-                                    <bs.Col className={`${props.qualityAlt}Quality`}>
-                                        <span id="qualityText"></span>
-                                    </bs.Col>
-                                    <bs.Col className={`${props.qualityAlt}Quality`}>
-                                        {props.qualityText}
-                                    </bs.Col>
+                                    <h3 id="qualityText"></h3>
                                 </div>
                             </bs.Col>
                         </bs.Row>

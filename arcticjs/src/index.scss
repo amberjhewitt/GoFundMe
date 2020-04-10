@@ -51,6 +51,10 @@ $light: #f8f9fa;
     width: 45%;
 }
 
+.center{
+  text-align: center;
+}
+
   .brand {
     color: #75C578;
   }
@@ -70,5 +74,10 @@ $light: #f8f9fa;
 .noneQuality{
     color: #D9D9D9;
   }
+
+.qualText {
+  font-size: large;
+  
+}
 
 @import '~bootstrap/scss/bootstrap';        // primary bootstrap library
