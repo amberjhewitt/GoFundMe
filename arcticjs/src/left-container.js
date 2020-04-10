@@ -63,7 +63,6 @@ function LeftContainer(props) {
 
     // render the categories
     return (
-        <>
         <div className="page-wrap">
             <bs.Nav className="flex-column">
                 <Link 
@@ -90,7 +89,7 @@ function LeftContainer(props) {
                     </bs.DropdownButton>
                 </bs.Nav.Item>                    
                     <hr />
-
+                <bs.Nav.Item>
                     <bs.DropdownButton id="dropdown-basic-button" title="Filter By Quality">
                         <bs.Dropdown.Item href="#/action-1">
                             <Link
@@ -116,17 +115,11 @@ function LeftContainer(props) {
                                 key={noQuality.id}
                                 >No Quality ({noQuality.length})
                             </Link>
+                        </bs.Dropdown.Item>
                     </bs.DropdownButton>
-
                 </bs.Nav.Item>
             </bs.Nav>
         </div>
-        <div>
-            
- 
-        </div>
-
-        </>
     )
 }
 export default LeftContainer;

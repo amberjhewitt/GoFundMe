@@ -17,94 +17,60 @@ export default Checkout
 const CheckoutController = props => {
 
     return (
-        <Formik
-            initialValues={{
-                goal: '1000',
-                title: 'Daniel needs a home',
-                description: 'Daniel has been homeless for a little over 3 years. He hasnt had many opportunities to find work after escaping the drug cartel.',
-                city: "Palm Springs",
-                state: "CA",
-                zip: '84606',
-                category: 'Dreams',
-            }}
-            validateOnChange={false}
-            validateOnBlur={false}
-            validate={values => {
-                console.log('validating', values)
-                return {}
-            }}
-            onSubmit={async (values, actions) => {
-                console.log('submit', values)
+        <div>
+            <Formik
+                initialValues={{
+                    goal: '1000',
+                    title: 'Daniel needs a home',
+                    description: 'Daniel has been homeless for a little over 3 years. He hasnt had many opportunities to find work after escaping the drug cartel.',
+                    city: "Palm Springs",
+                    state: "CA",
+                    zip: '84606',
+                    category: 'Dreams',
+                }}
+                validateOnChange={false}
+                validateOnBlur={false}
+                validate={values => {
+                    console.log('validating', values)
+                    return {}
+                }}
+                onSubmit={async (values, actions) => {
+                    console.log('submit', values)
 
 
-                //Django Request
+                    //Django Request
 
-                let userInput = {
-                    "auto_fb_post_mode": "False",                            
-                    "category_id": 9,
-                    "goal": values.goal,
-                    "title": values.title,
-                    "description": values.description,
-                    "location_city": values.city,
-                    "location_state": values.state,
-                    "location_zip": values.zip,
-                    "is_charity": "True",
-                    "DonationPerDay": 10000,
-                }
+                    let userInput = {
+                        "auto_fb_post_mode": "False",                            
+                        "category_id": 9,
+                        "goal": values.goal,
+                        "title": values.title,
+                        "description": values.description,
+                        "location_city": values.city,
+                        "location_state": values.state,
+                        "location_zip": values.zip,
+                        "is_charity": "True",
+                        "DonationPerDay": 10000,
+                    }
 
-                const resp = await axios.post('http://localhost:8000/api/prediction/', userInput)
+                    const resp = await axios.post('http://localhost:8000/api/prediction/', userInput)
 
-                let output = JSON.parse(resp.data)
-                console.log("++++++++++++++", output)
+                    let output = JSON.parse(resp.data)
 
-                let result = parseFloat(output.Results.output1.value.Values[0], 2)
+                    let result = parseFloat(output.Results.output1.value.Values[0], 2)
 
-                let goalCompletion = parseInt(parseInt(userInput.goal)/result)
-
-                document.getElementById('result').innerHTML = "Predicted amount of Donations per Day: <strong>$" + result + "</strong>"
-                document.getElementById('goalEstimate').innerHTML = "Anticipated completion time: <strong>" + goalCompletion + " days</strong>"
-
-                let quality = ""
-                let qualityAlt = ""
-                let imageurl = ''
-                let qualityText = ''
+                    console.log(result)   
                 
-                if (result >= 100) {
-                    quality = "High"
-                    qualityAlt = 'high'
-                    document.getElementById('qualityText').innerHTML = "Campaign Quality: Way to go! You're campaign is high quality. You're going to have a lot of success!"
-                    document.getElementById('qualityImg').innerHTML = "<img alt='quality image' src='/media/high.png' className='qualityImage'/>"
-                }
-                else if(result >= 50) {
-                    quality = "Medium"
-                    qualityAlt = 'medium'
-                    document.getElementById('qualityText').innerHTML = "Campaign Quality: Nice work! You're campaing could still use some work. Keep making improvements!"
-                    document.getElementById('qualityImg').innerHTML = "<img alt='quality image' src='/media/medium.png' className='qualityImage'/>"
-                }
-                else if(result > 0){
-                    quality = "To be determined"
-                    qualityAlt = 'none'
-                    document.getElementById('qualityText').innerHTML = "Campaign Quality: Hmmm... something must not be right. Please review your inputs."
-                    document.getElementById('qualityImg').innerHTML = "<img alt='quality image' src='/media/low.png' className='qualityImage'/>"
-                }
-                else{
-                    quality = "Low"
-                    qualityAlt = 'low'
-                    document.getElementById('qualityText').innerHTML = "Campaign Quality: Your campaign quality is low. Try making more improvements to your description for better results!"
-                    document.getElementById('qualityImg').innerHTML = "<img alt='quality image' src='/media/none.png' className='qualityImage'/>"
-                }
-                
-                
-                
+                    document.getElementById('result').innerHTML = "Predicted amount of Donations per Day: $<strong>" + result + "</strong>"
 
-            }}
-            >{form => (
-                <>
-                    <PredictionForm form={form}/>
-                </>
-                    )}</Formik>
-                
-                {/* Pop Up Suggestions */}
+                }}
+                >{form => (
+                    <>
+                        <PredictionForm form={form}/>
+                    </>
+                )}</Formik>
+
+            {/* Pop Up Suggestions */}
             <div className="proTips">
                 <h3>Want to improve your chances of a successful campaign?</h3>
                 <p>
@@ -117,8 +83,11 @@ const CheckoutController = props => {
                     </ul>
                 </p>
             </div>
-                )
-            }
+        </div>
+    )
+
+}
+
 
             /**
              * The form layout/html.
@@ -178,17 +147,7 @@ const CheckoutController = props => {
                                 </bs.Button>
                                 <br />
                                 <br />
-                                <div className='float-lft'>
-                                    <h3 id="result"></h3>
-                                    <h3 id="goalEstimate"></h3>
-                                    <p id="qualityImg"></p>
-                                    <bs.Col className={`${props.qualityAlt}Quality`}>
-                                        <span id="qualityText"></span>
-                                    </bs.Col>
-                                    <bs.Col className={`${props.qualityAlt}Quality`}>
-                                        {props.qualityText}
-                                    </bs.Col>
-                                </div>
+                                <h3 id="result"></h3>
                             </bs.Col>
                         </bs.Row>
                     </bs.Container>
