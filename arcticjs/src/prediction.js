@@ -55,13 +55,14 @@ const CheckoutController = props => {
                 const resp = await axios.post('http://localhost:8000/api/prediction/', userInput)
 
                 let output = JSON.parse(resp.data)
+                console.log("++++++++++++++", output)
 
                 let result = parseFloat(output.Results.output1.value.Values[0], 2)
 
-                console.log(result)   
-
                 let goalCompletion = parseInt(parseInt(userInput.goal)/result)
-                console.log(goalCompletion)
+
+                document.getElementById('result').innerHTML = "Predicted amount of Donations per Day: <strong>$" + result + "</strong>"
+                document.getElementById('goalEstimate').innerHTML = "Anticipated completion time: <strong>" + goalCompletion + " days</strong>"
 
                 let quality = ""
                 let qualityAlt = ""
@@ -71,30 +72,29 @@ const CheckoutController = props => {
                 if (result >= 100) {
                     quality = "High"
                     qualityAlt = 'high'
-                    qualityText = "Way to go! You're campaign is high quality. You're going to have a lot of success!"
-                    imageurl = '/media/high.png'
+                    document.getElementById('qualityText').innerHTML = "Campaign Quality: Way to go! You're campaign is high quality. You're going to have a lot of success!"
+                    document.getElementById('qualityImg').innerHTML = "<img alt='quality image' src='/media/high.png' className='qualityImage'/>"
                 }
                 else if(result >= 50) {
                     quality = "Medium"
                     qualityAlt = 'medium'
-                    qualityText = "Nice work! You're campaing could still use some work. Keep making improvements!"
-                    imageurl = '/media/medium.png'
+                    document.getElementById('qualityText').innerHTML = "Campaign Quality: Nice work! You're campaing could still use some work. Keep making improvements!"
+                    document.getElementById('qualityImg').innerHTML = "<img alt='quality image' src='/media/medium.png' className='qualityImage'/>"
                 }
-                else if(result === 0){
+                else if(result > 0){
                     quality = "To be determined"
                     qualityAlt = 'none'
-                    qualityText = 'Hmmm... something must not be right. Please review your inputs.'
-                    imageurl = '/media/none.png'
+                    document.getElementById('qualityText').innerHTML = "Campaign Quality: Hmmm... something must not be right. Please review your inputs."
+                    document.getElementById('qualityImg').innerHTML = "<img alt='quality image' src='/media/low.png' className='qualityImage'/>"
                 }
                 else{
                     quality = "Low"
                     qualityAlt = 'low'
-                    qualityText = 'Your campaign quality is low. Try making more improvements to your description for better results!'
-                    imageurl = '/media/low.png'
+                    document.getElementById('qualityText').innerHTML = "Campaign Quality: Your campaign quality is low. Try making more improvements to your description for better results!"
+                    document.getElementById('qualityImg').innerHTML = "<img alt='quality image' src='/media/none.png' className='qualityImage'/>"
                 }
                 
-                document.getElementById('result').innerHTML = "Predicted amount of Donations per Day: $<strong>" + result + "</strong>"
-                document.getElementById('goalEstimate').innerHTML = "Anticipated completion time: <strong>" + goalCompletion + " days</strong>"
+                
                 
 
             }}
@@ -168,13 +168,9 @@ const CheckoutController = props => {
                                 <div className='float-lft'>
                                     <h3 id="result"></h3>
                                     <h3 id="goalEstimate"></h3>
-                                    <bs.Image
-                                        alt='quality image'
-                                        src={props.imageurl}
-                                        className="qualityImage"
-                                    />
+                                    <p id="qualityImg"></p>
                                     <bs.Col className={`${props.qualityAlt}Quality`}>
-                                        {`Campaign Quality: ${props.quality}`}
+                                        <span id="qualityText"></span>
                                     </bs.Col>
                                     <bs.Col className={`${props.qualityAlt}Quality`}>
                                         {props.qualityText}

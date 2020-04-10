@@ -28,19 +28,19 @@ function CampaignCard(props) {
     let imageurl = ''
     let qualityText = ''
     
-    if (result >= 100) {
+    if (success >= 100) {
         quality = "High"
         qualityAlt = 'high'
         qualityText = "Way to go! You're campaign is high quality. You're going to have a lot of success!"
         imageurl = '/media/high.png'
     }
-    else if(result >= 50) {
+    else if(success >= 50) {
         quality = "Medium"
         qualityAlt = 'medium'
         qualityText = "Nice work! You're campaing could still use some work. Keep making improvements!"
         imageurl = '/media/medium.png'
     }
-    else if(result === 0){
+    else if(success === 0){
         quality = "To be determined"
         qualityAlt = 'none'
         qualityText = 'Hmmm... something must not be right. Please review your inputs.'
